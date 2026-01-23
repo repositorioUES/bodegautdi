@@ -38,6 +38,11 @@ public class ProductoController {
         return productoService.buscarProductoPorId(id);
     }
 
+    @GetMapping("/buscar")
+    public List<Producto> buscarProductos(@RequestParam String nombre) {
+        return productoService.buscarPorNombre(nombre);
+    }
+
     @PostMapping
     public Producto guardarProducto(@RequestBody ProductoRegistroDTO productoDTO){
 
@@ -66,8 +71,8 @@ public class ProductoController {
         return productoService.guardarProducto(producto);
     }
 
-    @DeleteMapping
-    public void eliminarProducto(@RequestBody Integer id){
+    @DeleteMapping("/{id}")
+    public void eliminarProducto(@PathVariable Integer id){
         productoService.eliminarProducto(id);
     }
 
@@ -80,6 +85,6 @@ public class ProductoController {
         public BigDecimal precioventaproducto;
         public Integer idCategoria; // Solo recibimos el ID
         public Integer idProveedor; // Solo recibimos el ID
-        public Integer idUnidadMedida;
+        public Integer idUnidadMedida; // Solo recibimos el ID
     }
 }

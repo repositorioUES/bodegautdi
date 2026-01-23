@@ -2,6 +2,8 @@ package com.sistemainventario.inventario.service;
 
 import com.sistemainventario.inventario.model.Producto;
 import com.sistemainventario.inventario.repository.ProductoRepository;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -19,11 +21,15 @@ public class ProductoService {
     }
 
     public List<Producto> listarProductos(){
-        return productoRepository.findAll();
+        return productoRepository.findAll(Sort.by(Sort.Direction.ASC, "categoria.idCategoria"));
     }
 
     public Optional<Producto> buscarProductoPorId(Integer id){
         return productoRepository.findById(id);
+    }
+
+    public List<Producto> buscarPorNombre(String nombre) {
+        return productoRepository.findByNombreproductoContainingIgnoreCase(nombre);
     }
 
     @Transactional

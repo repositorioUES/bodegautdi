@@ -4,6 +4,7 @@ import { CategoriaComponent } from './components/categoria/categoria-list/catego
 import { ProveedorListComponent } from './components/proveedor/proveedor-list/proveedor-list.component';
 import { BodegaListComponent } from './components/bodega/bodega-list/bodega-list.component';
 import { UnidadesMedidasListComponent } from './components/unidades-medidas/unidades-medidas-list/unidades-medidas-list.component';
+import { ProductoListComponent } from './components/producto/producto-list/producto-list.component';
 
 export const routes: Routes = [
     //{ path: '', redirectTo: 'catalogos', pathMatch: 'full' },
@@ -15,8 +16,6 @@ export const routes: Routes = [
             {
                 path: '', 
                 component: CatalogoComponent 
-                // <--- AQUÍ BORRAMOS EL DATA BREADCRUMB
-                // Al no tener etiqueta, el breadcrumb lo ignora y no lo duplica.
             },
             {
                 path: 'categorias', 
@@ -37,6 +36,11 @@ export const routes: Routes = [
                 path: 'unidades', 
                 component: UnidadesMedidasListComponent, 
                 data: { breadcrumb: 'Unidades de Medida' } 
+            },
+            {
+                path: 'productos', 
+                component: ProductoListComponent, 
+                data: { breadcrumb: 'Productos' } 
             },
             // ... otros hijos ...
         ]

@@ -1,0 +1,108 @@
+/*@import '@angular/material/prebuilt-themes/indigo-pink.css';*/
+
+/* 1. Contenedor de la tabla (Para bordes redondeados) */
+.mat-mdc-table {
+    background-color: white;
+}
+
+/* 2. Estilo del Encabezado (Header) */
+.mat-mdc-header-row {
+    background-color: #f8f9fa; /* Gris muy suave (Bootstrap light) */
+    min-height: 50px; /* Altura más compacta */
+}
+
+.mat-mdc-header-cell {
+    color: #495057;       /* Gris oscuro, no negro */
+    font-weight: 700;     /* Negrita */
+    font-size: 0.85rem;   /* Letra un poco más chica */
+    text-transform: uppercase; /* Mayúsculas elegantes */
+    letter-spacing: 0.5px;
+}
+
+/* 3. Estilo de las Filas (Rows) */
+.mat-mdc-row {
+    min-height: 50px; /* Filas más delgadas para que no se vea tanto espacio */
+    transition: background-color 0.2s;
+}
+
+/* Efecto Hover bonito */
+.mat-mdc-row:hover {
+    background-color: #e2e6ea !important; /* Gris azulado al pasar el mouse */
+    cursor: default;
+}
+
+/* 4. Estilo de las Celdas */
+.mat-mdc-cell {
+    font-size: 0.95rem;
+    color: #212529;
+    border-bottom-color: #dee2e6; /* Líneas divisorias más sutiles */
+}
+
+/* 1. El botón de editar (primary) */
+button[mat-icon-button][color="primary"] {
+    /* Usa el color principal de tu tema (Cyan/Azure) */
+    color: var(--mat-sys-primary) !important;
+}
+
+/* 2. El botón de eliminar (warn) */
+button[mat-icon-button][color="warn"] {
+    /* Usa el color de error de tu tema (Rojo) */
+    color: var(--mat-sys-error) !important;
+}
+
+/* Opcional: Un efecto hover para que resalte más */
+button[mat-icon-button]:hover {
+    background-color: var(--mat-sys-surface-variant);
+}
+
+
+/* --- MANTENER TU FIX DE LA COLUMNA ACCIONES --- */
+.mat-column-acciones {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  text-align: center;
+  padding-right: 24px !important;
+  overflow: visible !important;
+}
+
+/* Contenedor de la barra de búsqueda */
+.search-field {
+    width: 100%;
+    max-width: 350px;
+    transition: all 0.3s ease; /* Animación suave al interactuar */
+}
+
+/* Efecto de elevación y cambio de ancho al hacer foco */
+.search-field:focus-within {
+    max-width: 420px;
+    transform: translateY(-2px);
+}
+
+/* Estilo del icono de búsqueda */
+.search-icon {
+    color: var(--mat-sys-primary); /* Usa el color primario de tu tema */
+    transition: transform 0.3s ease;
+}
+
+.search-field:focus-within .search-icon {
+    transform: scale(1.2) rotate(10deg);
+    color: #00bcd4; /* Un toque de color más vibrante al activar */
+}
+
+/* Personalización de los bordes y sombras internos */
+::ng-deep .search-field .mat-mdc-text-field-wrapper {
+    background-color: white !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Eliminar la línea extra de abajo que a veces pone Material */
+::ng-deep .search-field .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+/* Ajuste del padding para que se vea más equilibrado con el redondeado */
+::ng-deep .search-field .mat-mdc-form-field-flex {
+    padding-left: 20px !important;
+    padding-right: 15px !important;
+}

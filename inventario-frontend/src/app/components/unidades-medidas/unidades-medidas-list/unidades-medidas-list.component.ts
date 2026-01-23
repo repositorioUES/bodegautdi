@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, ViewChild, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -14,12 +14,32 @@ import { UnidadMedida } from '../../../models/unidades-medidas';
 import { UnidadesMedidasDialogComponent } from '../unidades-medidas-dialog/unidades-medidas-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
+export function getPaginatorIntl() {
+  const paginatorIntl = new MatPaginatorIntl();
+  paginatorIntl.itemsPerPageLabel = 'Artículos por página:';
+  paginatorIntl.nextPageLabel = 'Siguiente';
+  paginatorIntl.previousPageLabel = 'Anterior';
+  paginatorIntl.firstPageLabel = 'Primera página';
+  paginatorIntl.lastPageLabel = 'Última página';
+  paginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length === 0 || pageSize === 0) {
+      return `0 de ${length}`;
+    }
+    length = Math.max(length, 0);
+    const startIndex = page * pageSize;
+    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
+  };
+  return paginatorIntl;
+}
+
 @Component({
   selector: 'app-unidades-medidas-list',
   imports: [
     CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule, 
     MatIconModule, MatCardModule, MatTooltipModule, MatDialogModule, MatSnackBarModule
   ],
+  providers: [{ provide: MatPaginatorIntl, useValue: getPaginatorIntl() }],
   templateUrl: './unidades-medidas-list.component.html',
   styleUrl: './unidades-medidas-list.component.css',
 })
