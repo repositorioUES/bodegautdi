@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- Estilos para SnackBars (Notificaciones) --- */
+
+/* Éxito (Verde) */
+.snack-exito {
+    background-color: #2e7d32 !important; /* Verde Material */
+    color: white !important;
+}
+.snack-exito .mat-mdc-button-touch-target {
+    color: white !important; /* Botón de acción blanco */
+}
+
+/* Error (Rojo) */
+.snack-error {
+    background-color: #c62828 !important; /* Rojo Material */
+    color: white !important;
+}
+
+/* Clase personalizada para botón de éxito */
+.btn-success {
+    background-color: #2e7d32 !important; /* Verde Material Design */
+    color: white !important;
+}
+
+/* Opcional: Estilo para botón de ícono verde */
+.icon-yellow {
+    color: #ffd900 !important;
+}
+
+.btn-nuevo {
+    background-color: #022453 !important; /* Tu color personalizado (ej: verde) */
+    color: white !important; /* Color del texto */
+}

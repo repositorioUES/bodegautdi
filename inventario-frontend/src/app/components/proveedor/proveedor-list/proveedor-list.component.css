@@ -1,0 +1,67 @@
+/*@import '@angular/material/prebuilt-themes/indigo-pink.css';*/
+
+/* 1. Contenedor de la tabla (Para bordes redondeados) */
+.mat-mdc-table {
+    background-color: white;
+}
+
+/* 2. Estilo del Encabezado (Header) */
+.mat-mdc-header-row {
+    background-color: #f8f9fa; /* Gris muy suave (Bootstrap light) */
+    min-height: 50px; /* Altura más compacta */
+}
+
+.mat-mdc-header-cell {
+    color: #495057;       /* Gris oscuro, no negro */
+    font-weight: 700;     /* Negrita */
+    font-size: 0.85rem;   /* Letra un poco más chica */
+    text-transform: uppercase; /* Mayúsculas elegantes */
+    letter-spacing: 0.5px;
+}
+
+/* 3. Estilo de las Filas (Rows) */
+.mat-mdc-row {
+    min-height: 50px; /* Filas más delgadas para que no se vea tanto espacio */
+    transition: background-color 0.2s;
+}
+
+/* Efecto Hover bonito */
+.mat-mdc-row:hover {
+    background-color: #e2e6ea !important; /* Gris azulado al pasar el mouse */
+    cursor: default;
+}
+
+/* 4. Estilo de las Celdas */
+.mat-mdc-cell {
+    font-size: 0.95rem;
+    color: #212529;
+    border-bottom-color: #dee2e6; /* Líneas divisorias más sutiles */
+}
+
+/* 1. El botón de editar (primary) */
+button[mat-icon-button][color="primary"] {
+    /* Usa el color principal de tu tema (Cyan/Azure) */
+    color: var(--mat-sys-primary) !important;
+}
+
+/* 2. El botón de eliminar (warn) */
+button[mat-icon-button][color="warn"] {
+    /* Usa el color de error de tu tema (Rojo) */
+    color: var(--mat-sys-error) !important;
+}
+
+/* Opcional: Un efecto hover para que resalte más */
+button[mat-icon-button]:hover {
+    background-color: var(--mat-sys-surface-variant);
+}
+
+
+/* --- MANTENER TU FIX DE LA COLUMNA ACCIONES --- */
+.mat-column-acciones {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  text-align: center;
+  padding-right: 24px !important;
+  overflow: visible !important;
+}

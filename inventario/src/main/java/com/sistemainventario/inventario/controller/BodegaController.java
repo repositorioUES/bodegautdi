@@ -27,8 +27,8 @@ public class BodegaController {
         return bodegaService.guardarBodega(bodega);
     }
 
-    @DeleteMapping
-    public void eliminarBodega(@RequestBody Integer id){
+    @DeleteMapping("/{id}")
+    public void eliminarBodega(@PathVariable Integer id){
         bodegaService.eliminarBodega(id);
     }
 }

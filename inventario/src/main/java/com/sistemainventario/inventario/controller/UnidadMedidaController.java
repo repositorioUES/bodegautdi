@@ -26,4 +26,11 @@ public class UnidadMedidaController {
     public UnidadMedida guardarUnidadMedida(@RequestBody UnidadMedida unidadMedida) {
         return unidadMedidaService.guardarUnidadMedida(unidadMedida);
     }
+
+    @DeleteMapping("/{id}")
+    public void eliminarUnidadMedida(@PathVariable Integer id) {
+        unidadMedidaService.eliminarUnidadMedida(id);
+    }
+
+
 }

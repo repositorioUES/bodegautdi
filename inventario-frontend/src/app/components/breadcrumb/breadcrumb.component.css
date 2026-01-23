@@ -1,0 +1,24 @@
+.breadcrumb {
+    background-color: transparent; /* Fondo transparente */
+    font-size: 0.95rem;
+}
+
+.breadcrumb-item a {
+    color: var(--mat-sys-primary); /* Usa tu color Azure/Cyan del tema */
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.breadcrumb-item a:hover {
+    color: #fd0d0d; /* Un azul más oscuro al pasar el mouse */
+    text-decoration: underline !important;
+}
+
+.breadcrumb-item.active {
+    font-weight: 400; /* Texto actual más ligero */
+}
+
+/* Ajuste fino para el icono de home */
+.mat-icon {
+    vertical-align: text-bottom;
+}

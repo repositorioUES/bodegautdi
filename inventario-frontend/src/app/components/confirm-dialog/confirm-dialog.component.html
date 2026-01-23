@@ -1,0 +1,16 @@
+<h2 mat-dialog-title class="text-danger">
+    <mat-icon class="align-middle me-2">warning</mat-icon>
+    Confirmar Eliminación
+</h2>
+
+<mat-dialog-content>
+    <p class="fs-6">¿Estás seguro de que deseas eliminar este registro?</p>
+    <p class="text-secondary small">Esta acción no se puede deshacer.</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cerrar(false)">Cancelar</button>
+    <button class="text-danger" mat-raised-button color="warn" (click)="cerrar(true)">
+        Eliminar
+    </button>
+</mat-dialog-actions>
