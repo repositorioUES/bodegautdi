@@ -22,11 +22,26 @@
       <li class="nav-header">Inventario</li>
 
       <li>
-        <a routerLink="/actividad" routerLinkActive="active" class="nav-link text-dark">
-          <i class="bi bi-sliders2-vertical me-2"></i>
-          Actividad
+        <a routerLink="/presupuesto/nuevo_presupuesto" routerLinkActive="active" class="nav-link text-dark">
+          <i class="bi bi-tools me-2"></i>
+          Crear Presupuesto
         </a>
       </li>
+
+      <li>
+        <a routerLink="/presupuesto" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link text-dark">
+          <i class="bi bi-sliders2-vertical me-2"></i>
+          Aprobaciones
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/proyecto" routerLinkActive="active" class="nav-link text-dark">
+          <i class="bi bi-lightning me-2"></i>
+          Proyecto
+        </a>
+      </li>
+    
   
       <li>
         <a routerLink="/inventario" routerLinkActive="active" class="nav-link text-dark">

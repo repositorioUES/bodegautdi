@@ -52,7 +52,7 @@ export class ProductoDialogComponent implements OnInit {
     // Carga paralela de catálogos
     this.catService.getCategorias().subscribe(data => {
       this.listaCategorias = data;
-      this.cdr.detectChanges(); //
+      this.cdr.detectChanges();
     });
 
     this.provService.getProveedores().subscribe(data => {

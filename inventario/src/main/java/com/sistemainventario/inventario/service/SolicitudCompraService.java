@@ -33,13 +33,14 @@ public class SolicitudCompraService {
 
     //CREANDO LA SOLICITUD DE COMPRA
     @Transactional
-    public SolicitudCompra crearSolicitudCompra(Integer idUsuarioSolicitante, Integer idBodegaDestino ){
+    public SolicitudCompra crearSolicitudCompra(String nombreSolicitud, Integer idUsuarioSolicitante, Integer idBodegaDestino ){
         Usuario usuario = usuarioRepository.findById(idUsuarioSolicitante)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Bodega bodega = bodegaRepository.findById(idBodegaDestino)
                 .orElseThrow(() -> new RuntimeException("Bodega no encontrada"));
 
         SolicitudCompra solicitudCompra = new SolicitudCompra();
+        solicitudCompra.setNombresolicitud(nombreSolicitud);
         solicitudCompra.setIdusuariosolicitante(usuario);
         solicitudCompra.setIdbodegadestino(bodega);
 
@@ -104,6 +105,30 @@ public class SolicitudCompraService {
         solicitudCompra.setEstado("RECEPCIONADA");
         solicitudCompraRepository.save(solicitudCompra);
 
+    }
+
+    // 1. Obtener todas las solicitudes (Para el historial completo)
+    public List<SolicitudCompra> listarTodas() {
+        return solicitudCompraRepository.findAll();
+    }
+
+    // 2. Obtener solicitudes por estado (Para pestañas "Pendientes", "Aprobadas")
+    public List<SolicitudCompra> listarPorEstado(String estado) {
+        return solicitudCompraRepository.findByEstado(estado);
+    }
+    
+    // 3. Obtener una solicitud específica por ID (Para ver el detalle)
+    public Optional<SolicitudCompra> obtenerSolicitudPorId(Long id) {
+        return solicitudCompraRepository.findById(id);
+    }
+
+    // 4. Obtener los productos (detalles) de una solicitud específica
+    // IMPORTANTE: Esto lo usarás en el Frontend cuando des clic en "Ver Detalle"
+    public List<SolicitudCompraDetalle> listarDetallesDeSolicitud(Long idSolicitud) {
+        SolicitudCompra solicitud = solicitudCompraRepository.findById(idSolicitud)
+                .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
+        
+        return solicitudCompraDetalleRepository.findBySolicitudCompra(solicitud);
     }
 
 }

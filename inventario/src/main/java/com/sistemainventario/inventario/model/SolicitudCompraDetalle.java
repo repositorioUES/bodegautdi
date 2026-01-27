@@ -1,5 +1,7 @@
 package com.sistemainventario.inventario.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,11 +19,11 @@ public class SolicitudCompraDetalle {
 
     // --- Relaciones ---
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idsolicitudcompra", nullable = false)
     private SolicitudCompra solicitudCompra; // El "padre" o "cabecera"
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idproducto", nullable = false)
     private Producto producto; // El producto que se pide
 }

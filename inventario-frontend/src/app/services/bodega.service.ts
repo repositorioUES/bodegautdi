@@ -2,6 +2,7 @@ import { Injectable,inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Bodega } from '../models/bodega';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { Bodega } from '../models/bodega';
 export class BodegaService {
 
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/bodegas';
+  private apiUrl = `${environment.apiUrl}/bodegas`;
 
   getBodegas(): Observable<Bodega[]> {
     return this.http.get<Bodega[]>(this.apiUrl);

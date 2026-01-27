@@ -1,44 +1,114 @@
-/*@import '@angular/material/prebuilt-themes/indigo-pink.css';*/
-
-/* 1. Contenedor de la tabla (Para bordes redondeados) */
-.mat-mdc-table {
-    background-color: white;
+.custom-card {
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 16px !important;
+    /* Cambio: Sombra más oscura (0.2) y más expandida */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important; 
+    background: white;
+    overflow: hidden;
 }
 
-/* 2. Estilo del Encabezado (Header) */
+/* --- TABLA Y ENCABEZADOS --- */
+.mat-mdc-table {
+    background: transparent;
+}
+
 .mat-mdc-header-row {
-    background-color: #f8f9fa; /* Gris muy suave (Bootstrap light) */
-    min-height: 50px; /* Altura más compacta */
+    background-color: #ffffff; /* Fondo blanco limpio */
+    border-bottom: 2px solid #f1f3f5; /* Línea separadora sutil */
+    height: 60px; /* Un poco más de aire */
 }
 
 .mat-mdc-header-cell {
-    color: #495057;       /* Gris oscuro, no negro */
-    font-weight: 700;     /* Negrita */
-    font-size: 0.85rem;   /* Letra un poco más chica */
-    text-transform: uppercase; /* Mayúsculas elegantes */
+    color: #8898aa; /* Gris azulado moderno */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Espaciado entre letras elegante */
+}
+
+/* --- FILAS Y HOVER --- */
+.mat-mdc-row {
+    height: 70px; /* Filas más altas para mejor lectura */
+    border-bottom: 1px solid #f8f9fa;
+    transition: all 0.2s ease-in-out;
+}
+
+.hover-row:hover {
+    background-color: #f8faff !important; /* Azul muy muy pálido al pasar el mouse */
+    transform: translateY(-2px); /* Efecto sutil de "levantamiento" */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    z-index: 1;
+    position: relative;
+}
+
+.mat-mdc-cell {
+    font-size: 0.9rem;
+    color: #344767; /* Color de texto oscuro pero suave */
+    font-weight: 500;
+}
+
+/* --- BADGES (ESTILO SOFT) --- */
+/* Estos badges tienen fondo claro y texto oscuro del mismo color */
+.badge-soft {
+    padding: 8px 12px;
+    border-radius: 8px; /* Cuadrado redondeado (más moderno que pill) */
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+}
+
+/* Colores específicos para tus roles */
+.role-admin {
+    background-color: #fceceb; /* Rojo pastel */
+    color: #e63757; /* Rojo fuerte */
+}
+
+.role-inventario {
+    background-color: #e7f6f8; /* Cyan pastel */
+    color: #11cdef; /* Cyan fuerte */
+}
+
+.role-bodega {
+    background-color: #fff6e5; /* Naranja pastel */
+    color: #fb8c00; /* Naranja fuerte */
+}
+
+.role-default {
+    background-color: #f3f4f6;
+    color: #5d6676;
+}
+
+/* --- BOTONES DE ACCIÓN --- */
+.action-btn {
+    transition: transform 0.2s;
+}
+.action-btn:hover {
+    transform: scale(1.1); /* Efecto zoom al pasar el mouse */
+    background-color: rgba(0,0,0,0.04);
+}
+
+/* --- FIX COLUMNA ACCIONES --- */
+.mat-column-acciones {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+    text-align: center;
+    padding-right: 24px !important;
+    overflow: visible !important;
+}
+
+/* --- BOTÓN NUEVO USUARIO --- */
+.btn-nuevo {
+    background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%); /* Degradado */
+    box-shadow: 0 4px 10px rgba(63, 81, 181, 0.3); /* Sombra de color */
+    border: none;
+    height: 45px;
+    font-weight: 500;
     letter-spacing: 0.5px;
 }
 
-/* 3. Estilo de las Filas (Rows) */
-.mat-mdc-row {
-    min-height: 50px; /* Filas más delgadas para que no se vea tanto espacio */
-    transition: background-color 0.2s;
-}
-
-/* Efecto Hover bonito */
-.mat-mdc-row:hover {
-    background-color: #e2e6ea !important; /* Gris azulado al pasar el mouse */
-    cursor: default;
-}
-
-/* 4. Estilo de las Celdas */
-.mat-mdc-cell {
-    font-size: 0.95rem;
-    color: #212529;
-    border-bottom-color: #dee2e6; /* Líneas divisorias más sutiles */
-}
-
-/* 1. El botón de editar (primary) */
 button[mat-icon-button][color="primary"] {
     /* Usa el color principal de tu tema (Cyan/Azure) */
     color: var(--mat-sys-primary) !important;
@@ -48,20 +118,4 @@ button[mat-icon-button][color="primary"] {
 button[mat-icon-button][color="warn"] {
     /* Usa el color de error de tu tema (Rojo) */
     color: var(--mat-sys-error) !important;
-}
-
-/* Opcional: Un efecto hover para que resalte más */
-button[mat-icon-button]:hover {
-    background-color: var(--mat-sys-surface-variant);
-}
-
-
-/* --- MANTENER TU FIX DE LA COLUMNA ACCIONES --- */
-.mat-column-acciones {
-  width: 140px;
-  min-width: 140px;
-  max-width: 140px;
-  text-align: center;
-  padding-right: 24px !important;
-  overflow: visible !important;
 }

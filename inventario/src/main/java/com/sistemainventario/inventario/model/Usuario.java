@@ -1,5 +1,7 @@
 package com.sistemainventario.inventario.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +18,7 @@ public class Usuario {
     private String nombreusuario;
 
     @Column(name = "passwordusuario", nullable = false, length = 255)
+    @JsonIgnore
     private String passwordusuario;
 
     // --- Relación con Rol ---

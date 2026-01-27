@@ -2,6 +2,7 @@ import { Injectable,inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UnidadMedida } from '../models/unidades-medidas';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { UnidadMedida } from '../models/unidades-medidas';
 export class UnidadMedidaService {
 
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/unidades';
+  private apiUrl = `${environment.apiUrl}/unidades`;
 
   getUnidadesMedida(): Observable<UnidadMedida[]> {
     return this.http.get<UnidadMedida[]>(this.apiUrl);

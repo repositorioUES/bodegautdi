@@ -8,38 +8,20 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
 
 // --- Imports de Material ---
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; 
-
-export function getPaginatorIntl() {
-  const paginatorIntl = new MatPaginatorIntl();
-  paginatorIntl.itemsPerPageLabel = 'Artículos por página:';
-  paginatorIntl.nextPageLabel = 'Siguiente';
-  paginatorIntl.previousPageLabel = 'Anterior';
-  paginatorIntl.firstPageLabel = 'Primera página';
-  paginatorIntl.lastPageLabel = 'Última página';
-  paginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
-    if (length === 0 || pageSize === 0) {
-      return `0 de ${length}`;
-    }
-    length = Math.max(length, 0);
-    const startIndex = page * pageSize;
-    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    return `${startIndex + 1} - ${endIndex} de ${length}`;
-  };
-  return paginatorIntl;
-}
-
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categoria',
   standalone: true,
   imports: [
+    RouterLink,
     MatTableModule, 
     MatPaginatorModule, 
     MatButtonModule, 
@@ -49,7 +31,6 @@ export function getPaginatorIntl() {
     MatDialogModule,
     MatSnackBarModule
   ],
-  providers: [{ provide: MatPaginatorIntl, useValue: getPaginatorIntl() }],
   templateUrl: './categoria.component.html',
   styleUrl: './categoria.component.css',
 })

@@ -5,13 +5,35 @@ import { ProveedorListComponent } from './components/proveedor/proveedor-list/pr
 import { BodegaListComponent } from './components/bodega/bodega-list/bodega-list.component';
 import { UnidadesMedidasListComponent } from './components/unidades-medidas/unidades-medidas-list/unidades-medidas-list.component';
 import { ProductoListComponent } from './components/producto/producto-list/producto-list.component';
+import { UsuarioListComponent } from './components/usuario/usuario-list/usuario-list.component';
+import { SolicitudFormComponent } from './components/solicitud-compra/solicitud-form/solicitud-form.component';
+import { SolicitudListComponent } from './components/solicitud-compra/solicitud-list/solicitud-list.component';
 
 export const routes: Routes = [
-    //{ path: '', redirectTo: 'catalogos', pathMatch: 'full' },
-    
+
+    { 
+        path: 'usuarios', 
+        component: UsuarioListComponent,  
+        data: { breadcrumb: 'Usuarios' }  
+    },
+    { 
+        path: 'presupuesto', 
+        data: { breadcrumb: 'Presupuesto' },
+        children : [
+            {
+                path : '',
+                component: SolicitudListComponent
+            },
+            {
+                path : 'nuevo_presupuesto',
+                component : SolicitudFormComponent,
+                data: { breadcrumb: 'Nuevo Presupuesto' } 
+            },
+        ]  
+    },
     { 
         path: 'catalogos', 
-        data: { breadcrumb: 'Catálogos' }, // <--- EL PADRE MANTIENE LA ETIQUETA
+        data: { breadcrumb: 'Catálogos' },
         children: [
             {
                 path: '', 

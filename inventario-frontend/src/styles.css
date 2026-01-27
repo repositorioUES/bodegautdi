@@ -30,3 +30,89 @@
     background-color: #022453 !important; /* Tu color personalizado (ej: verde) */
     color: white !important; /* Color del texto */
 }
+
+
+/* =========================================
+   ESTILOS GLOBALES PARA TABLAS (Modern Soft UI)
+   ========================================= */
+
+/* 1. Tarjeta Contenedora (Sombra suave y bordes) */
+.custom-card {
+    border: none !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    background: white;
+    overflow: hidden;
+}
+
+/* 2. Encabezados de Tabla (Header) */
+.mat-mdc-header-row {
+    background-color: #ffffff;
+    border-bottom: 2px solid #f1f3f5;
+    height: 60px;
+}
+
+.mat-mdc-header-cell {
+    color: #8898aa; /* Gris azulado */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 3. Filas y Efecto Hover */
+.mat-mdc-row {
+    height: 70px;
+    border-bottom: 1px solid #f8f9fa;
+    transition: all 0.2s ease-in-out;
+}
+
+.mat-mdc-row:hover {
+    background-color: #f8faff !important; /* Azul muy pálido */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    z-index: 1;
+    position: relative;
+}
+
+/* 4. Texto de las celdas */
+.mat-mdc-cell {
+    font-size: 0.9rem;
+    color: #344767;
+    font-weight: 500;
+}
+
+/* 5. Columna de Acciones (Ancho fijo y alineación) */
+.col-acciones {
+    width: 120px;
+    text-align: right;
+    padding-right: 24px !important;
+}
+
+/* 6. Botones de Acción (Iconos con efecto zoom) */
+.action-btn {
+    transition: transform 0.2s;
+    color: #5c6bc0; /* Color primario suave por defecto */
+}
+.action-btn:hover {
+    transform: scale(1.1);
+    background-color: rgba(0,0,0,0.04);
+}
+.action-btn.delete { color: #e63757 !important; } /* Color específico para borrar */
+
+/* 7. Botón "Nuevo" Global */
+.btn-global-nuevo {
+    background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);
+    box-shadow: 0 4px 10px rgba(63, 81, 181, 0.3);
+    border: none;
+    color: white !important;
+    height: 45px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* 8. Fix para Paginador */
+.mat-mdc-paginator {
+    background: transparent;
+    border-top: 1px solid #f1f3f5;
+}

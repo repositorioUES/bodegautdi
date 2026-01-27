@@ -1,0 +1,156 @@
+<div class="container mt-4 mb-5">
+    
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <button mat-icon-button class="bg-white shadow-sm text-secondary" routerLink="/">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div>
+            <h6 class="text-uppercase text-muted mb-0" style="font-size: 0.75rem; letter-spacing: 1px;">Módulo de Presupuesto</h6>
+            <h3 class="fw-bold m-0 text-dark">Nuevo Presupuesto</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="custom-card p-4 h-100">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                        <mat-icon class="text-primary">assignment</mat-icon>
+                    </div>
+                    <h5 class="fw-bold m-0 text-dark">Detalles de la Solicitud</h5>
+                </div>
+
+                <form [formGroup]="form">
+                    <mat-form-field appearance="outline" class="w-100 mb-2 density-comfortable">
+                        <mat-label>Nombre del Presupuesto</mat-label>
+                        <input matInput formControlName="nombresolicitud" placeholder="Ej. Materiales Cámaras">
+                        <mat-icon matSuffix class="text-secondary">edit</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-100 mb-3 density-comfortable">
+                        <mat-label>Bodega Destino</mat-label>
+                        <mat-select formControlName="idBodega">
+                            @for (b of listaBodegas; track b.idBodega) {
+                                <mat-option [value]="b.idBodega">{{ b.nombrebodega }}</mat-option>
+                            }
+                        </mat-select>
+                        <mat-icon matSuffix class="text-secondary">store</mat-icon>
+                    </mat-form-field>
+
+                    <div class="separator-line my-4"></div>
+
+                    <h6 class="text-uppercase text-muted mb-4" style="font-size: 0.75rem;">Agregar Items</h6>
+                    
+                    <mat-form-field appearance="outline" class="w-100 mb-2">
+                        <mat-label>Buscar Producto</mat-label>
+                        <mat-select [(value)]="productoSeleccionado">
+                            <mat-option [value]="null">Seleccione...</mat-option>
+                            @for (p of listaProductos; track p.idProducto) {
+                                <mat-option [value]="p">
+                                    <div class="d-flex justify-content-between w-100">
+                                        <span>{{ p.nombreproducto }}</span>
+                                        <!--<span class="text-muted small ms-2">${{ p.preciocostoproducto }}</span>-->
+                                    </div>
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="row g-2">
+                        <div class="col-12">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Cantidad</mat-label>
+                                <input matInput type="number" [(ngModel)]="cantidadSeleccionada" [ngModelOptions]="{standalone: true}" min="1">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <button mat-raised-button class="w-100 h-90 btn-nuevo" (click)="agregarProducto()" [disabled]="!productoSeleccionado">
+                                <mat-icon>add_shopping_cart</mat-icon> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="custom-card">
+                
+                <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white border-bottom">
+                    <h5 class="fw-bold m-0 text-dark">Detalle de Productos</h5>
+                    <div class="badge-soft role-inventario d-flex align-items-center gap-2">
+                        <mat-icon style="font-size: 18px; width: 18px; height: 18px;">payments</mat-icon>
+                        <span class="fs-6">Total: ${{ totalEstimado | number:'1.2-2' }}</span>
+                    </div>
+                </div>
+
+                <table mat-table [dataSource]="dataSource" class="w-100">
+
+                    <ng-container matColumnDef="producto">
+                        <th mat-header-cell *matHeaderCellDef> PRODUCTO </th>
+                        <td mat-cell *matCellDef="let element"> 
+                            <div class="d-flex flex-column py-2">
+                                <span class="fw-bold text-dark">{{ element.producto.nombreproducto }}</span>
+                                <span class="small text-muted">{{ element.producto.skuproducto }}</span>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cantidad">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> CANT. </th>
+                        <td mat-cell *matCellDef="let element" class="text-center"> 
+                            <span class="badge-soft role-default text-dark">{{ element.cantidad }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="precio">
+                        <th mat-header-cell *matHeaderCellDef class="text-end"> PRECIO U. </th>
+                        <td mat-cell *matCellDef="let element" class="text-end text-muted"> 
+                            ${{ element.producto.preciocostoproducto | number:'1.2-2' }} 
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="subtotal">
+                        <th mat-header-cell *matHeaderCellDef class="text-end"> SUBTOTAL </th>
+                        <td mat-cell *matCellDef="let element" class="text-end fw-bold text-dark"> 
+                            ${{ element.subtotal | number:'1.2-2' }} 
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> </th>
+                        <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                            <button mat-icon-button color="warn" class="action-btn" (click)="eliminarDetalle(i)" matTooltip="Quitar de la lista">
+                                <mat-icon>delete_outline</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover-row"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell text-center py-5" colspan="5">
+                            <div class="d-flex flex-column align-items-center justify-content-center text-muted">
+                                <mat-icon class="mb-2" style="font-size: 48px; width: 48px; height: 48px; color: #e0e0e0;">shopping_basket</mat-icon>
+                                <p class="mb-0 fw-bold">No hay Productos en la solicitud</p>
+                                <small>Agregue productos desde el panel izquierdo</small>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <div class="p-3 bg-light border-top text-end">
+                    <button mat-raised-button color="primary" class="btn-nuevo px-5 rounded-pill" 
+                            (click)="guardarSolicitud()" 
+                            [disabled]="form.invalid">
+                        <mat-icon class="me-2">save</mat-icon> GUARDAR SOLICITUD
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

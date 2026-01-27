@@ -1,0 +1,42 @@
+/* Línea separadora sutil */
+.separator-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+}
+
+/* Ajuste para inputs más cómodos en la sección de formulario */
+::ng-deep .density-comfortable .mat-mdc-form-field-flex {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 50px;
+}
+
+/* Estilo para que el Total se vea como un badge bonito */
+.role-inventario {
+    border: 1px solid rgba(2, 102, 120, 0.2);
+    padding-inline: 5px;
+}
+
+/* Iconos dentro de los inputs */
+.mat-mdc-form-field-icon-suffix {
+    padding-left: 10px;
+}
+
+.btn-nuevo {
+    background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%); /* Degradado */
+    box-shadow: 0 4px 10px rgba(63, 81, 181, 0.3); /* Sombra de color */
+    border: none;
+    height: 45px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Corrección para botones personalizados deshabilitados */
+.btn-nuevo:disabled,
+.btn-nuevo[disabled] {
+    background: rgba(0, 0, 0, 0.12) !important; /* Gris estándar de Material */
+    color: rgba(0, 0, 0, 0.38) !important;      /* Texto gris */
+    box-shadow: none !important;                /* Sin sombra */
+    pointer-events: none;                       /* Asegura que no sea clickeable */
+    cursor: default;
+}

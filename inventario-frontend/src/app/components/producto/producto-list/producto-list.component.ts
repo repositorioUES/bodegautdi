@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, ViewChild, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -16,24 +16,7 @@ import { ProductoService } from '../../../services/producto.service';
 import { Producto, ProductoRegistroDTO } from '../../../models/producto';
 import { ProductoDialogComponent } from '../producto-dialog/producto-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
-
-// Función para traducir el paginador a español
-export function getPaginatorIntl() {
-  const paginatorIntl = new MatPaginatorIntl();
-  paginatorIntl.itemsPerPageLabel = 'Artículos por página:';
-  paginatorIntl.nextPageLabel = 'Siguiente';
-  paginatorIntl.previousPageLabel = 'Anterior';
-  paginatorIntl.firstPageLabel = 'Primera página';
-  paginatorIntl.lastPageLabel = 'Última página';
-  paginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
-    if (length === 0 || pageSize === 0) return `0 de ${length}`;
-    length = Math.max(length, 0);
-    const startIndex = page * pageSize;
-    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    return `${startIndex + 1} - ${endIndex} de ${length}`;
-  };
-  return paginatorIntl;
-}
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-producto-list',
@@ -41,9 +24,8 @@ export function getPaginatorIntl() {
   imports: [
     CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule, 
     MatIconModule, MatCardModule, MatTooltipModule, MatDialogModule, 
-    MatSnackBarModule, MatFormFieldModule, MatInputModule
+    MatSnackBarModule, MatFormFieldModule, MatInputModule,RouterLink
   ],
-  providers: [{ provide: MatPaginatorIntl, useValue: getPaginatorIntl() }],
   templateUrl: './producto-list.component.html',
   styleUrl: './producto-list.component.css',
 })

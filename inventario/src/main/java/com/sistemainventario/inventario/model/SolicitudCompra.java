@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.Instant; // Usamos Instant para Timestamps
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Data
 @Entity
 @Table(name = "solicitud_compra")
@@ -12,6 +14,9 @@ public class SolicitudCompra {
     @Column(name = "idsolicitudcompra")
     private Long idSolicitudCompra; // Usamos Long para BIGINT
 
+    @Column(name = "nombresolicitud", nullable = false, length = 150)
+    private String nombresolicitud;
+
     @Column(name = "fechacreacionsolicitud", nullable = false)
     private Instant fechacreacionsolicitud;
 
@@ -20,11 +25,11 @@ public class SolicitudCompra {
 
     // --- Relaciones ---
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idusuariosolicitante", nullable = false)
     private Usuario idusuariosolicitante;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idbodegadestino", nullable = false)
     private Bodega idbodegadestino;
 

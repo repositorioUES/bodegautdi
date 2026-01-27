@@ -2,6 +2,7 @@ import { Injectable,inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Proveedor } from '../models/proveedor';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { Proveedor } from '../models/proveedor';
 export class ProveedorService {
   
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/proveedores'; // Ajusta tu puerto si es necesario
+  private apiUrl = `${environment.apiUrl}/proveedores`;
 
   getProveedores(): Observable<Proveedor[]> {
     return this.http.get<Proveedor[]>(this.apiUrl);
