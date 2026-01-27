@@ -3,8 +3,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.Instant; // Usamos Instant para Timestamps
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Data
 @Entity
 @Table(name = "solicitud_compra")

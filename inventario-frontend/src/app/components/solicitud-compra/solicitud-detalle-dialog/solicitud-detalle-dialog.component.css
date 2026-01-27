@@ -1,0 +1,37 @@
+/* Heredamos estilos de tabla para consistencia */
+.mat-mdc-header-row {
+    background-color: #ffffff;
+    border-bottom: 2px solid #f1f3f5;
+    height: 50px; /* Un poco más compacta en modal */
+}
+
+.mat-mdc-header-cell {
+    color: #8898aa;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hover-row:hover {
+    background-color: #f8faff !important;
+}
+
+.mat-mdc-cell {
+    font-size: 0.85rem;
+    color: #344767;
+}
+
+/* Badges de Estado (Copiados de tu lista) */
+.badge-soft {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+}
+.status-pendiente { background-color: #fff8dd; color: #ffc700; border-color: #ffedb8; }
+.status-aprobada { background-color: #e8fff3; color: #50cd89; border-color: #d1fbe4; }
+.status-recepcionada { background-color: #e1f0ff; color: #009ef7; border-color: #cce9ff; }
+.status-rechazada { background-color: #fff5f8; color: #f1416c; border-color: #ffe1e9; }

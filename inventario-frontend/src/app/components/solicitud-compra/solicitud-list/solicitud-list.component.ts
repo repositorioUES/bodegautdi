@@ -10,9 +10,11 @@ import { MatChipsModule } from '@angular/material/chips'; // Para los badges
 import { RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SolicitudCompraService } from '../../../services/solicitud-compra.service';
 import { SolicitudCompra } from '../../../models/solicitud-compra';
+import { SolicitudDetalleDialogComponent } from '../solicitud-detalle-dialog/solicitud-detalle-dialog.component';
 
 @Component({
   selector: 'app-solicitud-list',
@@ -34,6 +36,7 @@ export class SolicitudListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   private solicitudService = inject(SolicitudCompraService);
+  private dialog = inject(MatDialog);
 
   constructor() {
     effect(() => {
@@ -54,8 +57,8 @@ export class SolicitudListComponent implements OnInit {
 
   cargarSolicitudes() {
     this.solicitudService.listar().subscribe(data => {
-        // Ordenamos para que la más reciente salga primero
-        this.solicitudes.set(data.sort((a, b) => b.idSolicitudCompra! - a.idSolicitudCompra!));
+        // ORDENAMIENTO SEGUN EL ID ASC O DESC
+        this.solicitudes.set(data.sort((a, b) => a.idSolicitudCompra! - b.idSolicitudCompra!));
     });
   }
 
@@ -64,13 +67,42 @@ export class SolicitudListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Métodos placeholder para las acciones futuras
-  verDetalle(id: number) {
-    console.log('Ver detalle de:', id);
-    // Aquí abriremos un Dialog más adelante
-  }
-
   aprobar(id: number) {
     console.log('Aprobar:', id);
   }
+
+
+  obtenerIniciales(nombre: string | undefined): string {
+    if (!nombre) return '';
+    
+    const partes = nombre.split('.');
+    
+    if (partes.length > 1) {
+      const inicialNombre = partes[0].charAt(0);
+      const inicialApellido = partes[1].charAt(0);
+      return (inicialNombre + inicialApellido).toUpperCase();
+    }
+    
+    return nombre.substring(0, 2).toUpperCase();
+  }
+
+  // Método verDetalle COMPLETO
+  verDetalle(solicitud: SolicitudCompra) {
+    const dialogRef = this.dialog.open(SolicitudDetalleDialogComponent, {
+      width: '800px', // Ancho adecuado
+      disableClose: false,
+      data: { solicitud: solicitud } // Pasamos todo el objeto
+    });
+
+    // Opcional: Si implementaste Aprobar/Recepcionar dentro del modal
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.accion === 'aprobar') {
+        this.aprobar(result.id);
+      } else if (result?.accion === 'recepcionar') {
+        // Llamar a tu lógica de recepción
+        console.log('Recepcionar ID:', result.id);
+      }
+    });
+  }
+
 }
