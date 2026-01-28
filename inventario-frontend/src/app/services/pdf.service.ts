@@ -10,7 +10,7 @@ export class PdfService {
 
   constructor() {}
 
-  generarPdfSolicitud(solicitud: SolicitudCompra, detalles:SolicitudCompraDetalle[]){
+  generarPdfSolicitud(solicitud: SolicitudCompra, detalles:SolicitudCompraDetalle[]): string{
     const doc = new jsPDF();
 
     // POSICIÓN PARA EL LOGO
@@ -36,7 +36,7 @@ export class PdfService {
     doc.setFontSize(10);
     doc.setTextColor(100);
     doc.text('Reporte de Solicitud de Compra', 14, 26);
-    doc.text(`Fecha de Impresión: ${new Date().toLocaleDateString()}`, 14, 31);
+    doc.text(`Fecha de Impresión: ${new Date().toLocaleString()}`, 14, 31);
 
     // CARD DATOS DE LA SOLICITUD
     doc.setDrawColor(220);
@@ -60,7 +60,7 @@ export class PdfService {
     doc.text(solicitud.idusuariosolicitante.nombreusuario, 45, 56);
     doc.text(solicitud.idbodegadestino.nombrebodega, 120, 56);
     doc.text(solicitud.estado, 45, 64);
-    doc.text(new Date(solicitud.fechacreacionsolicitud!).toLocaleDateString(), 130, 64);
+    doc.text(new Date(solicitud.fechacreacionsolicitud!).toLocaleString(), 130, 64);
 
     //AGREGAR LOS PRODUCTOS AL DETALLE
     const columnas = ['#', 'SKU', 'Producto', 'Cantidad', 'Precio', 'Subtotal'];
@@ -77,6 +77,7 @@ export class PdfService {
     //CALCULAR EL TOTAL DEL DETALLE DE PRODUCTOS
     const total = detalles.reduce((acc,curr) => acc + (curr.cantidad_solicitada * curr.producto.preciocostoproducto),0);
 
+    //DIBUJAR LA TABLA
     autoTable(doc, {
       startY: 80,
       head: [columnas],
@@ -111,8 +112,18 @@ export class PdfService {
     doc.text('Firma Solicitante', 35, finalY + 45);
     doc.text('Firma Autorización', 135, finalY + 45);
 
-    // Abrir el PDF en nueva pestaña (o usar .save('nombre.pdf') para descargar)
-    window.open(doc.output('bloburl'), '_blank');
+    const nombreArchivo = `Solicitud #${solicitud.idSolicitudCompra} - ${solicitud.nombresolicitud}`;
+    doc.setProperties({
+      title: nombreArchivo
+    });
+
+    const blob = doc.output('blob');
+    return URL.createObjectURL(blob);
+
+
+    //window.open(doc.output('bloburl'), '_blank');
+    //GUARDAR EL ARCHIVO CON SU NOMBRE
+    //doc.save(nombreArchivo);
 
   }
   

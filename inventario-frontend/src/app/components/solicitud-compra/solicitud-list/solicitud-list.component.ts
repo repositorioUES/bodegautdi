@@ -18,6 +18,7 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
 import { SolicitudDetalleDialogComponent } from '../solicitud-detalle-dialog/solicitud-detalle-dialog.component';
 import { SolicitudCompraService } from '../../../services/solicitud-compra.service';
 import { PdfService } from '../../../services/pdf.service';
+import { PdfViewerDialogComponent } from '../../pdf-viewer-dialog/pdf-viewer-dialog.component';
 
 @Component({
   selector: 'app-solicitud-list',
@@ -25,7 +26,7 @@ import { PdfService } from '../../../services/pdf.service';
   imports: [
     CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule, 
     MatIconModule, MatCardModule, MatTooltipModule, MatChipsModule, 
-    RouterLink, MatFormFieldModule, MatInputModule
+    RouterLink, MatFormFieldModule, MatInputModule, PdfViewerDialogComponent
   ],
   templateUrl: './solicitud-list.component.html',
   styleUrl: './solicitud-list.component.css'
@@ -202,7 +203,7 @@ export class SolicitudListComponent implements OnInit {
   }
 
   // --------------------------------------------------------
-  // FUNCION PARA IMPRIMIR LA SOLICITUD
+  // FUNCION PARA VER LA SOLICITUD COMO NUEVA VENTANA
   // --------------------------------------------------------
   imprimirSolicitud(solicitud : SolicitudCompra){
     if(!solicitud.idSolicitudCompra) return;
@@ -214,4 +215,31 @@ export class SolicitudListComponent implements OnInit {
       error : () => this.mostrarMensaje('Error al generar el PDF', true)
     });
   }
+
+  // --------------------------------------------------------
+  // FUNCION PARA VER LA SOLICITUD COMO MODAL
+  // --------------------------------------------------------
+  imprimirSolicitudModal(solicitud: SolicitudCompra) {
+    if(!solicitud.idSolicitudCompra) return;
+
+    this.solicitudService.listarDetalles(solicitud.idSolicitudCompra).subscribe({
+      next: (detalles) => {
+
+        const urlBlob = this.pdfService.generarPdfSolicitud(solicitud, detalles);
+
+        this.dialog.open(PdfViewerDialogComponent, {
+          width: '80%',
+          height: '80%',
+          maxWidth: '50vw',
+          panelClass: 'full-screen-modal',
+          data: { 
+            url: urlBlob,
+            titulo: `Vista Previa - Presupuesto #${solicitud.idSolicitudCompra}`
+          }
+        });
+      },
+      error: () => this.mostrarMensaje('Error al generar PDF', true)
+    });
+  }
+
 }
