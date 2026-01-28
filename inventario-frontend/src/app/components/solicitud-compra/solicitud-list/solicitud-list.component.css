@@ -60,9 +60,9 @@
 }
 
 .mat-column-acciones {
-    width: 140px;
-    min-width: 140px;
-    max-width: 140px;
+    width: 160px;
+    min-width: 100px;
+    max-width: 160px;
     text-align: center;
     padding-right: 24px !important;
     overflow: visible !important;

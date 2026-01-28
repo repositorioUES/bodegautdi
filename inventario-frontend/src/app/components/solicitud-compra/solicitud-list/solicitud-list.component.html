@@ -22,7 +22,6 @@
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Materiales, PENDIENTE" #input autocomplete="off">
                 <mat-icon matSuffix class="text-secondary">search</mat-icon>
             </mat-form-field>
-
         </div>
     </div>
 
@@ -99,13 +98,19 @@
             <ng-container matColumnDef="acciones">
                 <th mat-header-cell *matHeaderCellDef class="text-end pe-4"> ACCIONES </th>
                 <td mat-cell *matCellDef="let element" class="col-acciones">
+
+                    @if (element.estado === 'APROBADA' || element.estado === 'RECEPCIONADA'){
+                        <button mat-icon-button class="action-btn text-danger" matTooltip="Imprimir Presupuesto" (click)="imprimirSolicitud(element)">
+                            <mat-icon>print</mat-icon>
+                        </button>
+                    }
                     
                     <button mat-icon-button class="action-btn text-dark" matTooltip="Ver Detalles" (click)="verDetalle(element)">
                         <mat-icon>lists</mat-icon>
                     </button>
 
                     @if (element.estado === 'PENDIENTE') {
-                        <button mat-icon-button class="action-btn text-secondary" matTooltip="Aprobar Solicitud " (click)="aprobarSolicitud(element.idSolicitudCompra)">
+                        <button mat-icon-button class="action-btn text-success" matTooltip="Aprobar Solicitud " (click)="aprobarSolicitud(element.idSolicitudCompra)">
                             <mat-icon>check_circle_outline</mat-icon>
                         </button>
                     }

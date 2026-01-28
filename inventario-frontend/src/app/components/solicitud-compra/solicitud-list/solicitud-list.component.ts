@@ -13,10 +13,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
-import { SolicitudCompraService } from '../../../services/solicitud-compra.service';
 import { SolicitudCompra } from '../../../models/solicitud-compra';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { SolicitudDetalleDialogComponent } from '../solicitud-detalle-dialog/solicitud-detalle-dialog.component';
+import { SolicitudCompraService } from '../../../services/solicitud-compra.service';
+import { PdfService } from '../../../services/pdf.service';
 
 @Component({
   selector: 'app-solicitud-list',
@@ -31,7 +32,8 @@ import { SolicitudDetalleDialogComponent } from '../solicitud-detalle-dialog/sol
 })
 export class SolicitudListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'fecha', 'nombre', 'solicitante', 'bodega', 'estado', 'acciones'];
+  //agregar 'bodega' si se requiere que se muestre la bodega como una columna en la tabla 
+  displayedColumns: string[] = ['id', 'fecha', 'nombre', 'solicitante', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<SolicitudCompra>([]);
   solicitudes = signal<SolicitudCompra[]>([]);
   idUsuarioActual = 1; 
@@ -41,6 +43,7 @@ export class SolicitudListComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
   private solicitudService = inject(SolicitudCompraService);
+  private pdfService = inject(PdfService);
 
   constructor() {
     effect(() => {
@@ -186,6 +189,9 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
+  // --------------------------------------------------------
+  // FUNCION PARA IMPRIMIR MENSAJES TIPO SNACKBAR
+  // --------------------------------------------------------
   private mostrarMensaje(mensaje: string, esError: boolean) {
     this.snackBar.open(mensaje, 'Cerrar', {
       duration: 3000,
@@ -195,4 +201,17 @@ export class SolicitudListComponent implements OnInit {
     });
   }
 
+  // --------------------------------------------------------
+  // FUNCION PARA IMPRIMIR LA SOLICITUD
+  // --------------------------------------------------------
+  imprimirSolicitud(solicitud : SolicitudCompra){
+    if(!solicitud.idSolicitudCompra) return;
+
+    this.solicitudService.listarDetalles(solicitud.idSolicitudCompra).subscribe({
+      next : (detalles) => {
+        this.pdfService.generarPdfSolicitud(solicitud,detalles);
+      },
+      error : () => this.mostrarMensaje('Error al generar el PDF', true)
+    });
+  }
 }
