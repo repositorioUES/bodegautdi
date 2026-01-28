@@ -8,6 +8,7 @@ import { ProductoListComponent } from './components/producto/producto-list/produ
 import { UsuarioListComponent } from './components/usuario/usuario-list/usuario-list.component';
 import { SolicitudFormComponent } from './components/solicitud-compra/solicitud-form/solicitud-form.component';
 import { SolicitudListComponent } from './components/solicitud-compra/solicitud-list/solicitud-list.component';
+import { InventarioListComponent } from './components/inventario/inventario-list/inventario-list.component';
 
 export const routes: Routes = [
 
@@ -15,6 +16,11 @@ export const routes: Routes = [
         path: 'usuarios', 
         component: UsuarioListComponent,  
         data: { breadcrumb: 'Usuarios' }  
+    },
+    { 
+        path: 'inventarios', 
+        component: InventarioListComponent,  
+        data: { breadcrumb: 'Inventarios' }  
     },
     { 
         path: 'presupuesto', 

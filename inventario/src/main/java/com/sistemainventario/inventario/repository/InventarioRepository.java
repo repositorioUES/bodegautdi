@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface InventarioRepository extends JpaRepository<Inventario,InventarioId>{
 
+    List<Inventario> findByBodega_IdBodega(Integer idBodega);
+    
     List<Inventario> findByIdIdBodega(Integer idBodega);
 
     List<Inventario> findByIdIdProducto(Integer idProducto);

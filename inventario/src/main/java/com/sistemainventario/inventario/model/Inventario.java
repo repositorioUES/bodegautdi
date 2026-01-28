@@ -15,12 +15,12 @@ public class Inventario {
 
     // --- Mapeo de las relaciones que forman el ID ---
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idProducto") // <-- Mapea la parte 'idProducto' del @EmbeddedId
     @JoinColumn(name = "idproducto")
     private Producto producto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("idBodega") // <-- Mapea la parte 'idBodega' del @EmbeddedId
     @JoinColumn(name = "idbodega")
     private Bodega bodega;

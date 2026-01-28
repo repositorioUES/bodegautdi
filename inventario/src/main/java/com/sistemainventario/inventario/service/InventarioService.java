@@ -5,7 +5,7 @@ import com.sistemainventario.inventario.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
-// import java.util.List;
+import java.util.List;
 
 @Service
 public class InventarioService {
@@ -83,5 +83,15 @@ public class InventarioService {
 
         inventario.setCantidad_actual(nuevaCantidad);
         inventarioRepository.save(inventario);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Bodega> listarTodasLasBodegas(){
+        return bodegaRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Inventario> listarInventarioPorBodega(Integer idBodega){
+        return inventarioRepository.findByBodega_IdBodega(idBodega);
     }
 }

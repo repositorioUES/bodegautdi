@@ -1,0 +1,36 @@
+<div class="container mt-5">
+
+    <div class="mb-5">
+        <h6 class="text-uppercase text-muted mb-1" style="font-size: 0.8rem; letter-spacing: 1px;">Gestión de Stock</h6>
+        <h2 class="fw-bold text-dark m-0">Selecciona una Bodega</h2>
+        <p class="text-secondary mt-2">Elige una ubicación para ver y gestionar su inventario actual.</p>
+    </div>
+
+    <div class="row g-4"> <div class="col-12 col-md-6 col-lg-4" *ngFor="let bodega of bodegas">
+            
+            <mat-card class="bodega-card h-100 cursor-pointer" [routerLink]="['/inventario/bodega', bodega.idBodega]">
+                <mat-card-content class="p-4 d-flex flex-column align-items-center text-center">
+                    
+                    <div class="icon-circle mb-3 shadow-sm">
+                        <mat-icon>warehouse</mat-icon> </div>
+
+                    <h3 class="fw-bold text-dark mb-1">{{ bodega.nombrebodega }}</h3>
+                    
+                    <span class="text-muted small d-flex align-items-center justify-content-center gap-1">
+                        <mat-icon style="font-size: 14px; width: 14px; height: 14px;">location_on</mat-icon>
+
+                    </span>
+
+                    <mat-divider class="w-100 my-4"></mat-divider>
+
+                    <span class="text-primary fw-bold small d-flex align-items-center action-text">
+                        VER PRODUCTOS <mat-icon class="ms-1 icon-arrow">arrow_forward</mat-icon>
+                    </span>
+
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+
+    </div>
+</div>
