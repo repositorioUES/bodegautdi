@@ -22,6 +22,39 @@
     color: #344767;
 }
 
+.btn-confirmar {
+    background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%); /* Degradado */
+    box-shadow: 0 4px 10px rgba(63, 81, 181, 0.3); /* Sombra de color */
+    border: none;
+    height: 45px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Efecto Hover */
+.btn-confirmar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    filter: brightness(105%);
+}
+
+.btn-cancelar {
+    background: #ffffff;       /* Fondo blanco */
+    color: #d77777;            /* Texto gris elegante */
+    border: 1px solid #d3d3d3; /* Borde gris suave para definirlo */
+    height: 45px;              /* EXACTAMENTE la misma altura */
+    font-weight: 500;          /* Mismo peso de letra */
+    letter-spacing: 0.5px;     /* Mismo espaciado */
+    box-shadow: none;          /* Sin sombra para que se vea plano/secundario */
+}
+
+/* Efecto al pasar el mouse */
+.btn-cancelar:hover {
+    background-color: #ff6363; /* Un gris muy tenue */
+    border-color: #000000;     /* El borde se oscurece un poco */
+    color: #ffffff;            /* El texto se oscurece */
+}
+
 /* Badges de Estado (Copiados de tu lista) */
 .badge-soft {
     padding: 4px 10px;

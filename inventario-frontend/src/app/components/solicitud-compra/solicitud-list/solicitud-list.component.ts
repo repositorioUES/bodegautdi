@@ -11,7 +11,9 @@ import { RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { SolicitudCompraService } from '../../../services/solicitud-compra.service';
 import { SolicitudCompra } from '../../../models/solicitud-compra';
 import { SolicitudDetalleDialogComponent } from '../solicitud-detalle-dialog/solicitud-detalle-dialog.component';
@@ -32,11 +34,13 @@ export class SolicitudListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fecha', 'nombre', 'solicitante', 'bodega', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<SolicitudCompra>([]);
   solicitudes = signal<SolicitudCompra[]>([]);
+  idUsuarioActual = 1; 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  private solicitudService = inject(SolicitudCompraService);
   private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
+  private solicitudService = inject(SolicitudCompraService);
 
   constructor() {
     effect(() => {
@@ -67,10 +71,6 @@ export class SolicitudListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  aprobar(id: number) {
-    console.log('Aprobar:', id);
-  }
-
 
   obtenerIniciales(nombre: string | undefined): string {
     if (!nombre) return '';
@@ -86,22 +86,112 @@ export class SolicitudListComponent implements OnInit {
     return nombre.substring(0, 2).toUpperCase();
   }
 
-  // Método verDetalle COMPLETO
+  // --------------------------------------------------------
+  // MODAL CON EL DETALLE DE LA SOLICITUD
+  // --------------------------------------------------------
   verDetalle(solicitud: SolicitudCompra) {
     const dialogRef = this.dialog.open(SolicitudDetalleDialogComponent, {
-      width: '800px', // Ancho adecuado
+      width: '800px',
       disableClose: false,
-      data: { solicitud: solicitud } // Pasamos todo el objeto
+      data: { solicitud: solicitud }
     });
 
-    // Opcional: Si implementaste Aprobar/Recepcionar dentro del modal
+  // --------------------------------------------------------
+  // MODAL PARA APROBAR O RECEPCIONAR
+  // --------------------------------------------------------
     dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+
       if (result?.accion === 'aprobar') {
-        this.aprobar(result.id);
+        this.aprobarSolicitud(result.id,false);
       } else if (result?.accion === 'recepcionar') {
         // Llamar a tu lógica de recepción
+        this.recepcionarSolicitud(result.id, false);
         console.log('Recepcionar ID:', result.id);
       }
+    });
+  }
+
+  // --------------------------------------------------------
+  // MODAL DE SELECCION PARA APROBAR
+  // --------------------------------------------------------
+
+  aprobarSolicitud(id: number, confirmar: boolean = true){
+    if(confirmar){
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '350px',
+        data: {
+          titulo: 'Confirmar Aprobación',
+          mensaje: '¿Estás seguro de que deseas aprobar esta solicitud? Pasará a estado APROBADA.',
+          textoBoton: 'Aprobar',
+          colorBoton: 'primary' // Azul/Verde en lugar de Rojo
+        }
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        if(res) this.ejecutarAprobacion(id);
+      });
+    }else{
+      this.ejecutarAprobacion(id);
+    }
+  }
+
+  // --------------------------------------------------------
+  // MODAL DE SELECCION PARA RECEPCIONAR
+  // --------------------------------------------------------
+  ejecutarAprobacion(id : number){
+    this.solicitudService.aprobarSolicitud(id).subscribe({
+      next: () => {
+        this.mostrarMensaje('Solicitud Aprobada', false);
+        this.cargarSolicitudes();
+      },
+      error: () => this.mostrarMensaje('Error al aprobar solicitud', true)
+    });
+  }
+
+  // --------------------------------------------------------
+  // FUNCION PARA RECEPCIONAR DE SOLICITUDES
+  // --------------------------------------------------------
+  recepcionarSolicitud(id: number, confirmar: boolean = true){
+    if(confirmar){
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '350px',
+        data: {
+          titulo: 'Confirmar Recepción',
+          mensaje: 'Al recepcionar, se sumarán los productos al inventario de la bodega destino. ¿Continuar?',
+          textoBoton: 'Recepcionar',
+          colorBoton: 'primary'
+        }
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        if(res) this.ejecutarRecepcion(id);
+      });
+    }else{
+      this.ejecutarRecepcion(id);
+    }
+  }
+
+  // --------------------------------------------------------
+  // FUNCION PARA RECEPCIONAR DE SOLICITUDES
+  // --------------------------------------------------------
+  private ejecutarRecepcion(id : number){
+    this.solicitudService.recepcionarSolicitud(id, this.idUsuarioActual).subscribe({
+      next: () => {
+        this.mostrarMensaje('Productos Recepcionados e Inventario Actualizado', false);
+        this.cargarSolicitudes();
+      },
+      error : (e) => {
+        console.log(e);
+        this.mostrarMensaje('Error al recepcionar esta solicitud', true);
+      }
+    });
+  }
+
+  private mostrarMensaje(mensaje: string, esError: boolean) {
+    this.snackBar.open(mensaje, 'Cerrar', {
+      duration: 3000,
+      panelClass: esError ? ['snack-error'] : ['snack-exito'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top'
     });
   }
 

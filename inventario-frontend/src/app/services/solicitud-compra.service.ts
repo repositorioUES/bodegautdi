@@ -12,7 +12,7 @@ export class SolicitudCompraService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/solicitudes-compra`;
 
-  // Obtener todas
+// Obtener todas
   listar(): Observable<SolicitudCompra[]> {
     return this.http.get<SolicitudCompra[]>(this.apiUrl);
   }
@@ -32,9 +32,16 @@ export class SolicitudCompraService {
     return this.http.post<void>(`${this.apiUrl}/${idSolicitud}/productos`, detalle);
   }
   
-  // Aprobar
-  aprobar(id: number): Observable<void> {
+  // Aprobar (PUT sin cuerpo)
+  aprobarSolicitud(id: number): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}/aprobar`, {});
+  }
+
+  // Recepcionar (PUT con DTO)
+  recepcionarSolicitud(id: number, idUsuario: number): Observable<void> {
+    // El backend espera { "idUsuarioComprador": X }
+    const body = { idUsuarioComprador: idUsuario };
+    return this.http.put<void>(`${this.apiUrl}/${id}/recepcionar`, body);
   }
   
 }
