@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +21,7 @@ export class InventarioListComponent implements OnInit {
 
   private inventarioService = inject(InventarioService);
 
-  bodegas : Bodega[]=[];
+  bodegas = signal<Bodega[]>([]);
 
   ngOnInit(): void {
     this.cargarInventario();
@@ -31,7 +31,7 @@ export class InventarioListComponent implements OnInit {
   cargarInventario() {
     this.inventarioService.listarBodegas().subscribe({
       next: (data) => {
-        this.bodegas = data;
+        this.bodegas.set(data);
       console.log(this.bodegas);
       },
       error: (err) => console.error('Error al cargar bodegas', err)

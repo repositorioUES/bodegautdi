@@ -1,9 +1,18 @@
 /* --- CARD BASE --- */
+
+.custom-card {
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important; 
+    background: white;
+    overflow: hidden;
+}
+
 .bodega-card {
     border-radius: 20px !important; /* Bordes muy redondeados */
     border: 1px solid #f0f0f0 !important;
     background: white;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03) !important; /* Sombra base muy sutil */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important; 
     transition: all 0.3s ease; /* Suavidad al mover */
     cursor: pointer;
     position: relative;

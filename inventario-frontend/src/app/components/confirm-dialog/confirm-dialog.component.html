@@ -4,7 +4,10 @@
 
 <mat-dialog-content>
     <p class="text-secondary">{{ mensaje }}</p>
-    <small class="text-muted d-block mt-2" *ngIf="colorBoton === 'warn'">Esta acción no se puede deshacer.</small>
+
+    @if (colorBoton === 'warn'){
+        <small class="text-muted d-block mt-2">Esta acción no se puede deshacer.</small>
+    }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="mt-3">

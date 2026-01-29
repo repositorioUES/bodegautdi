@@ -1,6 +1,6 @@
 import { Component, OnInit,inject, signal, ViewChild, effect} from '@angular/core';
 //import { RouterLink } from '@angular/router';
-//import { CommonModule } from '@angular/common'; // Para *ngFor
+//import { CommonModule } from '@angular/common';
 import { CategoriaService } from '../../../services/categoria.service';
 import { Categoria } from '../../../models/categoria';
 import { CategoriaDialogComponent } from '../categoria-dialog/categoria-dialog.component';

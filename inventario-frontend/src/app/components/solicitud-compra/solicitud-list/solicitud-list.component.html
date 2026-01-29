@@ -145,7 +145,9 @@
                     <div class="d-flex flex-column align-items-center justify-content-center text-muted">
                         <mat-icon style="font-size: 45px; width: 45px; height: 45px;" class="mb-2">assignment_late</mat-icon>
                         <span class="fw-medium">No se encontraron solicitudes</span>
-                        <small class="text-muted mt-1" *ngIf="input.value">Para la búsqueda "{{input.value}}"</small>
+                        @if (input.value){
+                            <small class="text-muted mt-1">Para la búsqueda "{{input.value}}"</small>
+                        }
                     </div>
                 </td>
             </tr>

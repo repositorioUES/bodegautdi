@@ -26,7 +26,7 @@ import { PdfViewerDialogComponent } from '../../pdf-viewer-dialog/pdf-viewer-dia
   imports: [
     CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule, 
     MatIconModule, MatCardModule, MatTooltipModule, MatChipsModule, 
-    RouterLink, MatFormFieldModule, MatInputModule, PdfViewerDialogComponent
+    RouterLink, MatFormFieldModule, MatInputModule
   ],
   templateUrl: './solicitud-list.component.html',
   styleUrl: './solicitud-list.component.css'
@@ -228,9 +228,9 @@ export class SolicitudListComponent implements OnInit {
         const urlBlob = this.pdfService.generarPdfSolicitud(solicitud, detalles);
 
         this.dialog.open(PdfViewerDialogComponent, {
-          width: '80%',
-          height: '80%',
-          maxWidth: '50vw',
+          width: '100%',
+          height: '95%',
+          maxWidth: '60vw',
           panelClass: 'full-screen-modal',
           data: { 
             url: urlBlob,

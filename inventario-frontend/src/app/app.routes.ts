@@ -9,6 +9,7 @@ import { UsuarioListComponent } from './components/usuario/usuario-list/usuario-
 import { SolicitudFormComponent } from './components/solicitud-compra/solicitud-form/solicitud-form.component';
 import { SolicitudListComponent } from './components/solicitud-compra/solicitud-list/solicitud-list.component';
 import { InventarioListComponent } from './components/inventario/inventario-list/inventario-list.component';
+import { InventarioDetalleComponent } from './components/inventario/inventario-detalle/inventario-detalle.component';
 
 export const routes: Routes = [
 
@@ -17,11 +18,7 @@ export const routes: Routes = [
         component: UsuarioListComponent,  
         data: { breadcrumb: 'Usuarios' }  
     },
-    { 
-        path: 'inventarios', 
-        component: InventarioListComponent,  
-        data: { breadcrumb: 'Inventarios' }  
-    },
+
     { 
         path: 'presupuesto', 
         data: { breadcrumb: 'Presupuesto' },
@@ -36,6 +33,21 @@ export const routes: Routes = [
                 data: { breadcrumb: 'Nuevo Presupuesto' } 
             },
         ]  
+    },
+    { 
+        path: 'inventario', 
+        data: { breadcrumb: 'Inventario' },
+        children : [
+            {
+                path: '', 
+                component: InventarioListComponent,  
+            },
+            { 
+                path: 'bodega/:id', 
+                component: InventarioDetalleComponent,
+                data: { breadcrumb: 'Existencias' }  
+            },
+        ]
     },
     { 
         path: 'catalogos', 
