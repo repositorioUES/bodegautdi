@@ -9,4 +9,6 @@ import java.util.List;
 public interface SolicitudCompraRepository extends JpaRepository<SolicitudCompra, Long> {
 
     List<SolicitudCompra> findByEstado(String estado);
+
+    Long countByEstado(String estado);
 }

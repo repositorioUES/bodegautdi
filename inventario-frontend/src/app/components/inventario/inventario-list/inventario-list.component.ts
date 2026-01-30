@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +20,7 @@ export class InventarioListComponent implements OnInit {
 
 
   private inventarioService = inject(InventarioService);
+  private cdr = inject(ChangeDetectorRef);
 
   bodegas = signal<Bodega[]>([]);
 
@@ -32,7 +33,9 @@ export class InventarioListComponent implements OnInit {
     this.inventarioService.listarBodegas().subscribe({
       next: (data) => {
         this.bodegas.set(data);
-      console.log(this.bodegas);
+      //console.log(this.bodegas);
+      this.cdr.detectChanges();
+
       },
       error: (err) => console.error('Error al cargar bodegas', err)
     });
