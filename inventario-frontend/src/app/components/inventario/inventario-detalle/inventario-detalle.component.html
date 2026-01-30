@@ -79,7 +79,7 @@
                                 'stock-low': element.cantidad_actual <= 10 && element.cantidad_actual >=3,
                                 'stock-empty': element.cantidad_actual < 3 
                               }">
-                            {{ element.cantidad_actual }} u.
+                            {{ element.cantidad_actual }} {{ element.producto.unidadMedida?.abreviaturaunidadmedida | lowercase }}
                         </span>
                     </td>
                 </ng-container>

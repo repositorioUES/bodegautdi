@@ -11,13 +11,13 @@
 .mat-mdc-table { background: transparent; }
 
 .mat-mdc-header-row {
-    background-color: #ffffff;
+    background: linear-gradient(#3f51b5 0%, #5c6bc0 100%);
     border-bottom: 2px solid #f1f3f5;
     height: 60px; /* Tu altura deseada */
 }
 
 .mat-mdc-header-cell {
-    color: #8898aa;
+    color: #ffffff;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -51,7 +51,7 @@
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    text-transform: uppercase;
+/*     text-transform: uppercase; */
     border: 1px solid transparent;
     display: inline-block; /* Para que respete el padding */
 }
@@ -61,7 +61,7 @@
 /* Verde (Estilo Aprobada) -> Stock Saludable */
 .stock-high {
     background-color: #e8fff3;
-    color: #2ac972;
+    color: #0fba5c;
     border-color: #d1fbe4;
 }
 

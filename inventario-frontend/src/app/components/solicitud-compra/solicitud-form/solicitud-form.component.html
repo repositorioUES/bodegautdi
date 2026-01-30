@@ -12,73 +12,77 @@
 
     <div class="row">
         <div class="col-lg-4 mb-4">
-            <div class="custom-card p-4 h-100">
-                <div class="d-flex align-items-center mb-4">
+            <div class="custom-card h-100">
+
+                <div class="d-flex align-items-center mb-4 header-color">
+                    
                     <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
                         <mat-icon class="text-primary">assignment</mat-icon>
                     </div>
-                    <h5 class="fw-bold m-0 text-dark">Detalles de la Solicitud</h5>
+                    <h5 class="fw-bold m-0 text-white">Detalles de la Solicitud</h5>
                 </div>
 
-                <form [formGroup]="form">
-                    <mat-form-field appearance="outline" class="w-100 mb-2 density-comfortable">
-                        <mat-label>Nombre del Presupuesto</mat-label>
-                        <input matInput formControlName="nombresolicitud" placeholder="Ej. Materiales Cámaras">
-                        <mat-icon matSuffix class="text-secondary">edit</mat-icon>
-                    </mat-form-field>
+                <div class="container">
+                    <form [formGroup]="form">
+                        <mat-form-field appearance="outline" class="w-100 mb-2 density-comfortable">
+                            <mat-label>Nombre del Presupuesto</mat-label>
+                            <input matInput formControlName="nombresolicitud" placeholder="Ej. Materiales Cámaras">
+                            <mat-icon matSuffix class="text-secondary">edit</mat-icon>
+                        </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="w-100 mb-3 density-comfortable">
-                        <mat-label>Bodega Destino</mat-label>
-                        <mat-select formControlName="idBodega">
-                            @for (b of listaBodegas; track b.idBodega) {
-                                <mat-option [value]="b.idBodega">{{ b.nombrebodega }}</mat-option>
-                            }
-                        </mat-select>
-                        <mat-icon matSuffix class="text-secondary">store</mat-icon>
-                    </mat-form-field>
+                        <mat-form-field appearance="outline" class="w-100 mb-3 density-comfortable">
+                            <mat-label>Bodega de Recepción</mat-label>
+                            <mat-select formControlName="idBodega">
+                                @for (b of listaBodegas; track b.idBodega) {
+                                    <mat-option [value]="b.idBodega">{{ b.nombrebodega }}</mat-option>
+                                }
+                            </mat-select>
+                            <mat-icon matSuffix class="text-secondary">store</mat-icon>
+                        </mat-form-field>
 
-                    <div class="separator-line my-4"></div>
+                        <div class="separator-line my-4"></div>
 
-                    <h6 class="text-uppercase text-muted mb-4" style="font-size: 0.75rem;">Agregar Items</h6>
-                    
-                    <mat-form-field appearance="outline" class="w-100 mb-2">
-                        <mat-label>Buscar Producto</mat-label>
-                        <mat-select [(value)]="productoSeleccionado">
-                            <mat-option [value]="null">Seleccione...</mat-option>
-                            @for (p of listaProductos; track p.idProducto) {
-                                <mat-option [value]="p">
-                                    <div class="d-flex justify-content-between w-100">
-                                        <span>{{ p.nombreproducto }}</span>
-                                        <!--<span class="text-muted small ms-2">${{ p.preciocostoproducto }}</span>-->
-                                    </div>
-                                </mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
+                        <h6 class="text-uppercase text-muted mb-4" style="font-size: 0.75rem;">Agregar Items</h6>
+                        
+                        <mat-form-field appearance="outline" class="w-100 mb-2">
+                            <mat-label>Buscar Producto</mat-label>
+                            <mat-select [(value)]="productoSeleccionado">
+                                <mat-option [value]="null">Seleccione...</mat-option>
+                                @for (p of listaProductos; track p.idProducto) {
+                                    <mat-option [value]="p">
+                                        <div class="d-flex justify-content-between w-100">
+                                            <span>{{ p.nombreproducto }}</span>
+                                            <!--<span class="text-muted small ms-2">${{ p.preciocostoproducto }}</span>-->
+                                        </div>
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
 
-                    <div class="row g-2">
-                        <div class="col-12">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Cantidad</mat-label>
-                                <input matInput type="number" [(ngModel)]="cantidadSeleccionada" [ngModelOptions]="{standalone: true}" min="1">
-                            </mat-form-field>
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Cantidad</mat-label>
+                                    <input matInput type="number" [(ngModel)]="cantidadSeleccionada" [ngModelOptions]="{standalone: true}" min="1">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12">
+                                <button mat-raised-button class="w-100 h-90 btn-nuevo mb-4" (click)="agregarProducto()" [disabled]="!productoSeleccionado">
+                                    <mat-icon>add_shopping_cart</mat-icon> Agregar
+                                </button>
+                            </div>
                         </div>
-
-                        <div class="col-12">
-                            <button mat-raised-button class="w-100 h-90 btn-nuevo" (click)="agregarProducto()" [disabled]="!productoSeleccionado">
-                                <mat-icon>add_shopping_cart</mat-icon> Agregar
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
 
         <div class="col-lg-8">
-            <div class="custom-card">
+            <div class="detalles-card">
                 
-                <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white border-bottom">
-                    <h5 class="fw-bold m-0 text-dark">Detalle de Productos</h5>
+                <div class="d-flex justify-content-between align-items-center px-4 py-3  border-bottom">
+                    <h5 class="fw-bold m-0 text-white">Detalle de Productos</h5>
                     <div class="badge-soft role-inventario d-flex align-items-center gap-2">
                         <mat-icon style="font-size: 18px; width: 18px; height: 18px;">payments</mat-icon>
                         <span class="fs-6">Total: ${{ totalEstimado | number:'1.2-2' }}</span>

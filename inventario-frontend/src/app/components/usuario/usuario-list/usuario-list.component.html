@@ -1,7 +1,6 @@
 <div class="container mt-5">
     
     <div class="d-flex align-items-center gap-3 mb-4">
-    
         <button mat-icon-button class="bg-white shadow-sm text-dark" routerLink="/">
             <mat-icon>arrow_back</mat-icon>
         </button>
@@ -22,14 +21,14 @@
         <table mat-table [dataSource]="dataSource" class="w-100">
             
             <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef class="ps-4">ID</th>
-                <td mat-cell *matCellDef="let element" class="ps-4 text-secondary"> {{element.idUsuario}} </td>
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let element" class="text-secondary">#{{element.idUsuario}} </td>
             </ng-container>
 
             <ng-container matColumnDef="nombre">
                 <th mat-header-cell *matHeaderCellDef>USUARIO</th>
                 <td mat-cell *matCellDef="let element"> 
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center justify-content-center">
                         <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" 
                              style="width: 35px; height: 35px; color: #5c6bc0;">
                             <mat-icon style="font-size: 20px; width: 20px; height: 20px;">person</mat-icon>
@@ -50,8 +49,8 @@
             </ng-container>
 
             <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef class="text-end pe-4">ACCIONES </th>
-                <td mat-cell *matCellDef="let element" class="text-end pe-3">
+                <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+                <td mat-cell *matCellDef="let element">
                     <button mat-icon-button color="primary" class="action-btn" matTooltip="Editar">
                         <mat-icon>edit_note</mat-icon> </button>
                     <button mat-icon-button color="warn" class="action-btn" matTooltip="Eliminar">

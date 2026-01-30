@@ -13,13 +13,13 @@
 }
 
 .mat-mdc-header-row {
-    background-color: #ffffff; /* Fondo blanco limpio */
+    background: linear-gradient(#3f51b5 0%, #5c6bc0 100%);
     border-bottom: 2px solid #f1f3f5; /* Línea separadora sutil */
     height: 60px; /* Un poco más de aire */
 }
 
 .mat-mdc-header-cell {
-    color: #8898aa; /* Gris azulado moderno */
+    color: #ffffff;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;

@@ -12,17 +12,18 @@
 }
 
 .mat-mdc-header-row {
-    background-color: #ffffff; /* Fondo blanco limpio */
+    background: linear-gradient(#3f51b5 0%, #5c6bc0 100%);
     border-bottom: 2px solid #f1f3f5; /* Línea separadora sutil */
     height: 60px; /* Un poco más de aire */
 }
 
 .mat-mdc-header-cell {
-    color: #8898aa; /* Gris azulado moderno */
+    color: #ffffff; /* Gris azulado moderno */
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px; /* Espaciado entre letras elegante */
+    text-align: center;
 }
 
 /* --- FILAS Y HOVER --- */
@@ -44,6 +45,7 @@
     font-size: 0.9rem;
     color: #344767; /* Color de texto oscuro pero suave */
     font-weight: 500;
+    text-align: center !important;
 }
 
 /* --- BADGES (ESTILO SOFT) --- */
@@ -94,7 +96,7 @@
     min-width: 140px;
     max-width: 140px;
     text-align: center;
-    padding-right: 24px !important;
+    padding-right: 0px !important;
     overflow: visible !important;
 }
 

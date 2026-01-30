@@ -1,28 +1,17 @@
-/* --- CARD BASE --- */
-
-.custom-card {
-    border: 1px solid #e0e0e0 !important;
-    border-radius: 16px !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important; 
-    background: white;
-    overflow: hidden;
-}
 
 .bodega-card {
-    border-radius: 20px !important; /* Bordes muy redondeados */
+    border-radius: 20px !important; 
     border: 1px solid #f0f0f0 !important;
-    background: white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important; 
-    transition: all 0.3s ease; /* Suavidad al mover */
-    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 15px 20px rgba(0,0,0,0.03) !important;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-/* --- EFECTO HOVER (LEVANTAR) --- */
 .bodega-card:hover {
-    transform: translateY(-8px); /* Sube la tarjeta */
-    box-shadow: 0 15px 30px rgba(63, 81, 181, 0.15) !important; /* Sombra azulada */
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 30px rgba(63, 81, 181, 0.15) !important; 
     border-color: rgba(63, 81, 181, 0.2) !important;
 }
 
@@ -31,13 +20,13 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    /* Tu degradado corporativo */
-    background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); 
-    color: #3f51b5; /* Color Indigo */
+    background: linear-gradient(#5666bd 0%, #5c6bc0 100%);
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    box-shadow: 10px 3px 30px rgba(4, 4, 4, 0.5) !important; 
 }
 
 .icon-circle mat-icon {
@@ -46,14 +35,12 @@
     height: 30px;
 }
 
-/* Al hacer hover en la card, el icono cambia a color sólido */
 .bodega-card:hover .icon-circle {
-    background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);
-    color: white;
-    transform: scale(1.1);
+    background: linear-gradient(#5666bd 0%, #5c6bc0 100%);
+    color: rgb(255, 255, 255);
+    transform: scale(1);
 }
 
-/* --- TEXTO DE ACCIÓN Y FLECHA --- */
 .action-text {
     letter-spacing: 1px;
     transition: color 0.3s;
@@ -67,5 +54,5 @@
 }
 
 .bodega-card:hover .icon-arrow {
-    transform: translateX(5px); /* La flecha se mueve a la derecha */
+    transform: translateX(5px);
 }

@@ -6,3 +6,9 @@
     transform: translateY(-5px); /* Se levanta un poco al pasar el mouse */
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
+
+.bg-custom {
+    background: linear-gradient(300deg, #3f51b5 0%, #5c6bc0 100%);
+    width: 60px;
+    height: 60px;
+}

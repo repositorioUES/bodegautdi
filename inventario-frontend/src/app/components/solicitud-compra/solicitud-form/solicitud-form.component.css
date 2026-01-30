@@ -13,7 +13,7 @@
 
 /* Estilo para que el Total se vea como un badge bonito */
 .role-inventario {
-    border: 1px solid rgba(2, 102, 120, 0.2);
+    border: 1px solid rgb(255, 255, 255);
     padding-inline: 5px;
 }
 
@@ -39,4 +39,29 @@
     box-shadow: none !important;                /* Sin sombra */
     pointer-events: none;                       /* Asegura que no sea clickeable */
     cursor: default;
+}
+
+.custom-card { 
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 16px !important;
+    /* Cambio: Sombra más oscura (0.2) y más expandida */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important; 
+    background: white;
+    overflow: hidden;
+}
+
+.detalles-card { 
+    background: linear-gradient(#3f51b5 0%, #5c6bc0 100%);
+    color: aliceblue;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 16px !important;
+    /* Cambio: Sombra más oscura (0.2) y más expandida */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important; 
+    overflow: hidden;
+}
+
+.header-color {
+    background: linear-gradient(#3f51b5 0%, #5c6bc0 100%);
+    border-radius: 3px !important;
+    padding: 10px;
 }
