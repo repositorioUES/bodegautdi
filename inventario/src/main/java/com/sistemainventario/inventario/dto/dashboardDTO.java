@@ -3,7 +3,7 @@ package com.sistemainventario.inventario.dto;
 import lombok.Data;
 
 @Data
-public class dashboardDTO {
+public class DashboardDTO {
     private long pendientes;
     private long aprobadas;
     private long recepcionadas;

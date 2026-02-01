@@ -22,4 +22,9 @@ export class InventarioService {
     return this.http.get<any[]>(`${this.apiUrl}/bodega/${idBodega}`);
   }
 
+  getDashboard() : Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}/dashboard/resumen`);
+  }
+
 }
+  

@@ -45,12 +45,8 @@ public class UsuarioService {
 
         usuario.setRol(rol);
 
-        // --- 3. ENCRIPTACIÓN ---
-        // Tomamos la contraseña que viene del DTO (plana) y la encriptamos
         String passwordEncriptada = passwordEncoder.encode(usuario.getPasswordusuario());
         usuario.setPasswordusuario(passwordEncriptada);
-        // -----------------------
-
 
         return usuarioRepository.save(usuario);
     }

@@ -1,0 +1,65 @@
+<div class="container-fluid px-5 mt-4">
+    <div class="mb-4">
+        <h2 class="fw-bold text-dark m-0">Estado actual de solicitudes e inventario</h2>
+    </div>
+
+    <div class="row g-4">
+        
+        <div class="col-12 col-md-6 col-lg-3">
+            <mat-card class="stat-card border-warning">
+                <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Pendientes</h6>
+                        <h2 class="fw-bold text-dark m-0 display-6">{{ datos().pendientes }}</h2>
+                    </div>
+                    <div class="icon-box bg-warning-subtle text-warning">
+                        <mat-icon>pending_actions</mat-icon>
+                    </div>
+                </div>
+            </mat-card> 
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <mat-card class="stat-card border-success">
+                <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Aprobadas</h6>
+                        <h2 class="fw-bold text-dark m-0 display-6">{{ datos().aprobadas }}</h2>
+                    </div>
+                    <div class="icon-box bg-success-subtle text-success">
+                        <mat-icon>check_circle</mat-icon>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <mat-card class="stat-card border-primary">
+                <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Recepcionadas</h6>
+                        <h2 class="fw-bold text-dark m-0 display-6">{{ datos().recepcionadas }}</h2>
+                    </div>
+                    <div class="icon-box bg-primary-subtle text-primary">
+                        <mat-icon>inventory</mat-icon>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+            <mat-card class="stat-card border-indigo">
+                <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Bodegas Activas</h6>
+                        <h2 class="fw-bold text-dark m-0 display-6">{{ datos().totalBodegas }}</h2>
+                    </div>
+                    <div class="icon-box bg-indigo-subtle text-indigo">
+                        <mat-icon>warehouse</mat-icon>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+    </div>
+</div>

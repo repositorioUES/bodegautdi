@@ -10,9 +10,15 @@ import { SolicitudFormComponent } from './components/solicitud-compra/solicitud-
 import { SolicitudListComponent } from './components/solicitud-compra/solicitud-list/solicitud-list.component';
 import { InventarioListComponent } from './components/inventario/inventario-list/inventario-list.component';
 import { InventarioDetalleComponent } from './components/inventario/inventario-detalle/inventario-detalle.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
 
+    { 
+        path: 'dashboard', 
+        component: DashboardComponent,  
+        data: { breadcrumb: 'Dashboard' }  
+    },
     { 
         path: 'usuarios', 
         component: UsuarioListComponent,  
