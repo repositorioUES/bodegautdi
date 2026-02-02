@@ -137,14 +137,37 @@
 
 /* --- BOTÓN --- */
 .btn-login {
+    /* 1. Aquí aplicamos tu degradado */
+    background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);
+    color: white; /* Aseguramos que el texto se lea bien */
+    
+    /* 2. Tus estilos existentes */
     width: 100%;
     height: 50px;
     font-size: 1.1rem;
-    border-radius: 8px !important; /* Material override */
+    border-radius: 8px !important;
     margin-top: 1rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 15px rgba(63, 81, 181, 0.4);
+    
+    /* Transición suave para el hover */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Efecto opcional al pasar el mouse */
+.btn-login:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(63, 81, 181, 0.5);
+}
+
+/* --- IMPORTANTE: ESTADO DESHABILITADO --- */
+/* Sin esto, el botón se vería azul incluso cuando el formulario es inválido */
+.btn-login:disabled {
+    background: rgba(0, 0, 0, 0.12) !important; /* Gris suave */
+    color: rgba(0, 0, 0, 0.38) !important;      /* Texto gris */
+    box-shadow: none !important;                /* Sin sombra */
+    cursor: default;
 }
 
 .footer-copyright {

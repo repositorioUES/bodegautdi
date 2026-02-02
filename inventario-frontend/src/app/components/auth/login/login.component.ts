@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +24,7 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private snackBar = inject(MatSnackBar);
+  private cdr = inject(ChangeDetectorRef);
 
   loginForm = this.fb.group({
     nombreusuario: ['', [Validators.required]],
@@ -40,7 +41,8 @@ export class LoginComponent {
       localStorage.removeItem('token'); 
       
       // 2. Bloqueamos el botón
-      this.isLoading = true; 
+      this.isLoading = true;
+      this.cdr.detectChanges()
       
       const { nombreusuario, passwordusuario } = this.loginForm.value;
 
@@ -51,7 +53,7 @@ export class LoginComponent {
         },
         error: (err) => {
           // SI OCURRE UN ERROR (403, 401, 500, etc.)
-          console.error('Error en login:', err);
+          console.warn('Error en login:', err.status);
 
           // Usamos setTimeout para salir del ciclo de detección de cambios actual
           // y evitar el error NG0100, asegurando que el botón se desbloquee.
@@ -59,6 +61,7 @@ export class LoginComponent {
              
              // 3. ¡AQUÍ ESTÁ LA CLAVE! Desbloqueamos el botón
              this.isLoading = false; 
+             this.cdr.detectChanges()
 
              let mensaje = 'Error de conexión con el servidor';
              if (err.status === 403 || err.status === 401) {
@@ -72,7 +75,7 @@ export class LoginComponent {
               horizontalPosition: 'right'
              });
 
-          }, 1000); // Un pequeño retardo de 100ms asegura que la UI se refresque
+          }, 200); // Un pequeño retardo de 100ms asegura que la UI se refresque
         }
       });
     } else {

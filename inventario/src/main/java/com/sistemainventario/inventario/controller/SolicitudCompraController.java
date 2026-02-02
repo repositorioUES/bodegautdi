@@ -32,9 +32,7 @@ public class SolicitudCompraController {
 
     // 2. AGREGAR UN PRODUCTO A LA SOLICITUD (DETALLE)
     @PostMapping("/{idSolicitud}/productos")
-    public ResponseEntity<Void> agregarProducto(
-            @PathVariable Long idSolicitud,
-            @RequestBody DetalleSolicitudDTO detalleDTO) {
+    public ResponseEntity<Void> agregarProducto(@PathVariable Long idSolicitud,@RequestBody DetalleSolicitudDTO detalleDTO) {
         
         solicitudCompraService.agregarProductosASolicitudCompra(
                 idSolicitud,
@@ -45,7 +43,6 @@ public class SolicitudCompraController {
     }
 
     // 3. APROBAR LA SOLICITUD
-    // PUT http://localhost:8080/api/solicitudes-compra/{id}/aprobar
     @PutMapping("/{idSolicitud}/aprobar")
     public ResponseEntity<Void> aprobarSolicitud(@PathVariable Long idSolicitud) {
         solicitudCompraService.aprobarSolicitudCompra(idSolicitud);
@@ -53,11 +50,8 @@ public class SolicitudCompraController {
     }
 
     // 4. RECEPCIONAR LA SOLICITUD (ENTRADA DE STOCK)
-    // PUT http://localhost:8080/api/solicitudes-compra/{id}/recepcionar
     @PutMapping("/{idSolicitud}/recepcionar")
-    public ResponseEntity<Void> recepcionarSolicitud(
-            @PathVariable Long idSolicitud,
-            @RequestBody RecepcionDTO recepcionDTO) {
+    public ResponseEntity<Void> recepcionarSolicitud(@PathVariable Long idSolicitud,@RequestBody RecepcionDTO recepcionDTO) {
         
         solicitudCompraService.recepcionarSolicitudCompra(
                 idSolicitud,
@@ -66,27 +60,23 @@ public class SolicitudCompraController {
         return ResponseEntity.ok().build();
     }
 
-    // GET http://localhost:8080/api/solicitudes-compra?estado=PENDIENTE
+    // LISTADO DE SOLICITUDES POR SU ESTADO
     @GetMapping
     public ResponseEntity<List<SolicitudCompra>> listarPorEstado(@RequestParam(required = false) String estado) {
-        // Nota: Necesitarías un método 'listarTodas' en tu servicio si 'estado' es null
-        // O simplemente usar el repositorio directamente aquí si es una consulta simple
         if (estado != null) {
             return ResponseEntity.ok(solicitudCompraService.listarPorEstado(estado)); 
-            // *Agrega este método 'listarPorEstado' en tu Service llamando al repo
         }
         return ResponseEntity.ok(solicitudCompraService.listarTodas()); 
-        // *Agrega 'listarTodas' (findAll) en tu Service
     }
 
-    // GET http://localhost:8080/api/solicitudes-compra/{id}/detalles
+    // DETALLES DE LA SOLICITUD
     @GetMapping("/{id}/detalles")
     public ResponseEntity<List<SolicitudCompraDetalle>> obtenerDetalles(@PathVariable Long id) {
         return ResponseEntity.ok(solicitudCompraService.listarDetallesDeSolicitud(id));
     }
 
 
-    // --- DTOs (Objetos de Transferencia de Datos) ---
+    // DTOs
     
     // Para crear la cabecera
     public static class SolicitudDTO {

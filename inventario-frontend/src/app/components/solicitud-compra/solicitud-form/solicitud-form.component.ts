@@ -19,6 +19,7 @@ import { SolicitudCompraService } from '../../../services/solicitud-compra.servi
 import { UsuarioService } from '../../../services/usuario.service'; // Para obtener el usuario actual
 import { Producto } from '../../../models/producto';
 import { Bodega } from '../../../models/bodega';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-solicitud-form',
@@ -36,6 +37,7 @@ export class SolicitudFormComponent implements OnInit {
   private productoService = inject(ProductoService);
   private bodegaService = inject(BodegaService);
   private solicitudService = inject(SolicitudCompraService);
+  private authService = inject(AuthService);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
@@ -43,7 +45,7 @@ export class SolicitudFormComponent implements OnInit {
   // Datos para Selects
   listaProductos: Producto[] = [];
   listaBodegas: Bodega[] = [];
-  idUsuarioActual = 1; 
+  idUsuarioActual : number = 0; 
 
   // Formulario Cabecera
   form: FormGroup = this.fb.group({
@@ -61,6 +63,8 @@ export class SolicitudFormComponent implements OnInit {
   displayedColumns: string[] = ['producto', 'cantidad', 'precio', 'subtotal', 'acciones'];
 
   ngOnInit(): void {
+    this.idUsuarioActual = this.authService.getIdUsuarioActual();
+
     this.productoService.getProductos().subscribe(data => {
       this.listaProductos = data;
       this.cdr.detectChanges();
@@ -125,19 +129,6 @@ export class SolicitudFormComponent implements OnInit {
         error: () => this.snackBar.open('Error al crear cabecera', 'Cerrar', { panelClass: ['snack-error'] })
     });
   }
-
-
-/*   guardarDetalles(idSolicitud: number) {
-    // ... (Logica de guardado iterativo igual que antes) ...
-    // Para abreviar, al terminar:
-    this.snackBar.open('Solicitud Creada', 'Cerrar', { 
-      duration: 3000, 
-      verticalPosition: 'top',
-      horizontalPosition: 'right',
-      panelClass: ['snack-exito'] 
-    });
-    this.router.navigate(['/presupuesto']); // RUTA DE RETORNO
-  } */
 
   guardarDetalles(idSolicitud: number) {
     

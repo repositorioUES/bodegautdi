@@ -16,7 +16,7 @@ export class AuthService {
   isAuthenticated = signal<boolean>(!!this.getToken());
 
   login(nombreusuario: string, passwordusuario: string) {
-    // Enviamos las credenciales tal como las espera tu AuthController Java
+    // Enviamos las credenciales tal como las espera AuthController Java
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { 
       nombreusuario, 
       passwordusuario 
@@ -51,6 +51,24 @@ export class AuthService {
       console.error('Error decodificando token', e);
       return 'Usuario';
     }
+  }
+
+  // Método para obtener el ID de usuario desde el Token JWT
+  getIdUsuarioActual() : number {
+    const token = this.getToken();
+    if (!token) return 0;
+
+    try{
+      const payload = token.split('.')[1];
+      const decoded = JSON.parse(atob(payload));
+
+      return decoded.idUsuario || 0;
+    }catch(e){
+      console.error('Error decodificando token', e);
+      return 0;
+    }
+
+
   }
   
 
