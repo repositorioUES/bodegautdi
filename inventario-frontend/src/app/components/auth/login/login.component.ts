@@ -66,11 +66,13 @@ export class LoginComponent {
              }
              
              this.snackBar.open(mensaje, 'Cerrar', { 
-               duration: 3000,
-               panelClass: ['error-snackbar'] // Opcional si tienes estilos
+              duration: 3000,
+              panelClass: ['snack-error'],
+              verticalPosition: 'top',
+              horizontalPosition: 'right'
              });
 
-          }, 100); // Un pequeño retardo de 100ms asegura que la UI se refresque
+          }, 1000); // Un pequeño retardo de 100ms asegura que la UI se refresque
         }
       });
     } else {
