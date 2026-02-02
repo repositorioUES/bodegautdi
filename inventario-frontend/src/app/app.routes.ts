@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/auth/login/login.component';
+
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { CategoriaComponent } from './components/categoria/categoria-list/categoria.component';
 import { ProveedorListComponent } from './components/proveedor/proveedor-list/proveedor-list.component';
@@ -10,85 +13,116 @@ import { SolicitudFormComponent } from './components/solicitud-compra/solicitud-
 import { SolicitudListComponent } from './components/solicitud-compra/solicitud-list/solicitud-list.component';
 import { InventarioListComponent } from './components/inventario/inventario-list/inventario-list.component';
 import { InventarioDetalleComponent } from './components/inventario/inventario-detalle/inventario-detalle.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { authGuard } from './guards/auth-guard';
+import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
 
+    // RUTA PÚBLICA (Login)
+    // Está fuera del guardián para que cualquiera pueda entrar
     { 
-        path: 'dashboard', 
-        component: DashboardComponent,  
-        data: { breadcrumb: 'Dashboard' }  
-    },
-    { 
-        path: 'usuarios', 
-        component: UsuarioListComponent,  
-        data: { breadcrumb: 'Usuarios' }  
+        path: 'login', 
+        component: LoginComponent
     },
 
+    // RUTAS PROTEGIDAS (Sistema Principal)
+    // Todo lo que esté dentro de 'children' requiere estar logueado
     { 
-        path: 'presupuesto', 
-        data: { breadcrumb: 'Presupuesto' },
-        children : [
-            {
-                path : '',
-                component: SolicitudListComponent
-            },
-            {
-                path : 'nuevo_presupuesto',
-                component : SolicitudFormComponent,
-                data: { breadcrumb: 'Nuevo Presupuesto' } 
-            },
-        ]  
-    },
-    { 
-        path: 'inventario', 
-        data: { breadcrumb: 'Inventario' },
-        children : [
-            {
-                path: '', 
-                component: InventarioListComponent,  
-            },
-            { 
-                path: 'bodega/:id', 
-                component: InventarioDetalleComponent,
-                data: { breadcrumb: 'Existencias' }  
-            },
-        ]
-    },
-    { 
-        path: 'catalogos', 
-        data: { breadcrumb: 'Catálogos' },
+        path: '', 
+        component: MainLayoutComponent,
+        canActivate: [authGuard], // SEGURIDAD A TODO EL BLOQUE
         children: [
-            {
-                path: '', 
-                component: CatalogoComponent 
+            
+            // Dashboard
+            { 
+                path: 'dashboard', 
+                component: DashboardComponent,
+                data: { breadcrumb: 'Dashboard' }
             },
-            {
-                path: 'categorias', 
-                component: CategoriaComponent, 
-                data: { breadcrumb: 'Categorías' } 
+
+            // Usuarios
+            { 
+                path: 'usuarios', 
+                component: UsuarioListComponent,
+                data: { breadcrumb: 'Usuarios' }
             },
-            {
-                path: 'proveedores', 
-                component: ProveedorListComponent, 
-                data: { breadcrumb: 'Proveedores' } 
+
+            // Presupuesto / Solicitudes
+            { 
+                path: 'presupuesto', 
+                data: { breadcrumb: 'Presupuesto' },
+                children: [
+                    {
+                        path: '',
+                        component: SolicitudListComponent
+                    },
+                    {
+                        path: 'nuevo_presupuesto',
+                        component: SolicitudFormComponent,
+                        data: { breadcrumb: 'Nuevo Presupuesto' } 
+                    },
+                ]  
             },
-            {
-                path: 'bodegas', 
-                component: BodegaListComponent, 
-                data: { breadcrumb: 'Bodegas' } 
+
+            // Inventario (Vista de Cards y Detalles)
+            { 
+                path: 'inventario', 
+                data: { breadcrumb: 'Inventario' },
+                children: [
+                    {
+                        path: '', 
+                        component: InventarioListComponent, // Las Cards de Bodegas
+                    },
+                    { 
+                        path: 'bodega/:id', 
+                        component: InventarioDetalleComponent, // La Tabla de productos
+                        data: { breadcrumb: 'Existencias' }  
+                    },
+                ]
             },
-            {
-                path: 'unidades', 
-                component: UnidadesMedidasListComponent, 
-                data: { breadcrumb: 'Unidades de Medida' } 
+
+            // Catálogos (CRUD)
+            { 
+                path: 'catalogos', 
+                data: { breadcrumb: 'Catálogos' },
+                children: [
+                    {
+                        path: '', 
+                        component: CatalogoComponent 
+                    },
+                    {
+                        path: 'categorias', 
+                        component: CategoriaComponent, 
+                        data: { breadcrumb: 'Categorías' } 
+                    },
+                    {
+                        path: 'proveedores', 
+                        component: ProveedorListComponent, 
+                        data: { breadcrumb: 'Proveedores' } 
+                    },
+                    {
+                        path: 'bodegas', 
+                        component: BodegaListComponent, 
+                        data: { breadcrumb: 'Bodegas' } 
+                    },
+                    {
+                        path: 'unidades', 
+                        component: UnidadesMedidasListComponent, 
+                        data: { breadcrumb: 'Unidades de Medida' } 
+                    },
+                    {
+                        path: 'productos', 
+                        component: ProductoListComponent, 
+                        data: { breadcrumb: 'Productos' } 
+                    }
+                ]
             },
-            {
-                path: 'productos', 
-                component: ProductoListComponent, 
-                data: { breadcrumb: 'Productos' } 
-            },
-            // ... otros hijos ...
+
+            // Redirección por defecto si entran a la raíz ('') logueados
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ]
     },
+
+    // RUTA DEFAULT PARA RUTAS QUE NO EXISTEN
+    { path: '**', redirectTo: 'login' }
 ];
